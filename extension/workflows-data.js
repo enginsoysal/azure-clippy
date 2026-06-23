@@ -4,7 +4,7 @@ const WORKFLOWS_DATA = {
     "title": "Create a Virtual Machine",
     "version": "1.0.0",
     "lastVerified": "2026-06-23",
-    "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM",
+    "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualMachine",
     "steps": [
       {
         "id": "subscription",
@@ -220,7 +220,7 @@ const WORKFLOWS_DATA = {
     "title": "Create a Network Security Group",
     "version": "1.0.0",
     "lastVerified": "2026-06-23",
-    "startUrl": "https://portal.azure.com/#create/Microsoft.NetworkSecurityGroup-ARM",
+    "startUrl": "https://portal.azure.com/#create/Microsoft.Network/networkSecurityGroups",
     "steps": [
       {
         "id": "subscription",

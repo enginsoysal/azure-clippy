@@ -3,7 +3,7 @@
   "title": "Create a Virtual Machine",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
-  "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualMachine",
   "steps": [
     {
       "id": "subscription",

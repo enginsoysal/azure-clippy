@@ -107,10 +107,7 @@ class ClippyTour {
     this.index = idx;
     const step = this.steps[idx];
 
-    const selectors = [step.selector, step.fallbackSelector].filter(Boolean);
-    const el = await waitForElement(selectors, 8000);
-
-    // Update badge, title, body, progress
+    // Show content immediately — don't wait for element first
     this.balloon.querySelector('#clippy-tour-step-badge').textContent =
       `${idx + 1} / ${this.steps.length}`;
     this.balloon.querySelector('#clippy-tour-title').textContent = step.title;
@@ -123,16 +120,21 @@ class ClippyTour {
     nextBtn.textContent = idx === this.steps.length - 1 ? 'Finish ✓' : 'Next →';
     prevBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
 
-    // Scroll element into view and highlight
+    // Position center-screen while we find the element
+    this._positionCenter();
+
+    // Now find and highlight the element
+    const selectors = [step.selector, step.fallbackSelector].filter(Boolean);
+    const el = await waitForElement(selectors, 8000);
+
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      await new Promise(r => setTimeout(r, 350));
+      await new Promise(r => setTimeout(r, 300));
       this._highlightElement(el);
+      this._position(el);
     } else {
       this._clearHighlight();
     }
-
-    this._position(el);
   }
 
   _highlightElement(el) {
@@ -153,13 +155,17 @@ class ClippyTour {
     this._highlightedEl = null;
   }
 
+  _positionCenter() {
+    this.balloon.style.top       = '50%';
+    this.balloon.style.left      = '50%';
+    this.balloon.style.transform = 'translate(-50%, -50%)';
+    this.balloon.className       = '';
+  }
+
   _position(el) {
     const el2 = el || this._highlightedEl;
     if (!el2) {
-      // Center of screen
-      this.balloon.style.top  = '50%';
-      this.balloon.style.left = '50%';
-      this.balloon.style.transform = 'translate(-50%, -50%)';
+      this._positionCenter();
       return;
     }
 
