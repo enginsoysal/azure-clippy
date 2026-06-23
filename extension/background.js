@@ -1,4 +1,4 @@
-const GITHUB_RAW = 'https://raw.githubusercontent.com/enginsoysal/azure-clippy/main';
+const GITHUB_RAW = 'https://raw.githubusercontent.com/enginsoysal/azure-clippy/master';
 
 chrome.action.onClicked.addListener((tab) => {
   chrome.sidePanel.open({ windowId: tab.windowId });
