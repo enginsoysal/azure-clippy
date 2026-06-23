@@ -169,10 +169,10 @@ window.__clippyOpenSidebar = function () {
   hideBubble();
 };
 
-window.__clippyShowWorkflowStart = function (title) {
+window.__clippyShowWorkflowStart = function () {
   currentWorkflowRunning = true;
-  makeBubbleContent(`Starting: <strong>${title}</strong><br>Follow the highlighted steps!`, null);
-  bubbleTimeout = setTimeout(hideBubble, 5000);
+  clearTimeout(bubbleTimeout);
+  hideBubble();
 };
 
 window.__clippyShowWorkflowDone = function (title) {

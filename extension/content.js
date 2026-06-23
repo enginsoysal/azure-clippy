@@ -64,9 +64,9 @@ class ClippyTour {
   }
 
   _buildDOM() {
-    // Highlight ring
+    // Arrow pointer
     this.ring = document.createElement('div');
-    this.ring.className = 'clippy-highlight-ring';
+    this.ring.className = 'clippy-highlight-arrow';
     document.body.appendChild(this.ring);
 
     // Balloon
@@ -138,13 +138,12 @@ class ClippyTour {
 
   _highlightElement(el) {
     const rect = el.getBoundingClientRect();
-    const pad  = 4;
+    // Position arrow to the left of the element, vertically centered
+    const arrowW = 20;
     Object.assign(this.ring.style, {
-      display: 'block',
-      top:    `${rect.top    - pad}px`,
-      left:   `${rect.left   - pad}px`,
-      width:  `${rect.width  + pad * 2}px`,
-      height: `${rect.height + pad * 2}px`,
+      display: 'flex',
+      top:    `${rect.top + rect.height / 2 - 10}px`,
+      left:   `${rect.left - arrowW - 8}px`,
     });
     this._highlightedEl = el;
   }
