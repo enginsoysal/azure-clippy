@@ -1,0 +1,65 @@
+{
+  "id": "containers/create-container-instance",
+  "title": "Create a Container Instance",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.ContainerInstancesWizard",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "Azure Container Instances (ACI) bills per second of CPU and memory used. It is ideal for short-lived or event-driven workloads — you pay nothing when the container is stopped."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the container instance in the Resource Group of the project it belongs to. ACI instances are ephemeral by nature — the Resource Group makes it easy to clean up all related resources."
+    },
+    {
+      "id": "container-name",
+      "selector": "[aria-label='Container name']",
+      "fallbackSelector": "[name='containerName']",
+      "title": "Give the container a name",
+      "explanation": "This name identifies the container instance in Azure. It becomes part of the DNS name if you enable a public IP. Use lowercase letters, digits, and hyphens."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Choose a region",
+      "explanation": "Choose the region closest to your users or backend services. Not all container sizes and GPU options are available in every region. West Europe and East US have the broadest availability."
+    },
+    {
+      "id": "image-source",
+      "selector": "[aria-label='Image source']",
+      "fallbackSelector": "[data-telemetryid='ImageSource']",
+      "title": "Choose the image source",
+      "explanation": "Quickstart images: Microsoft sample images for testing. Docker Hub: public images like 'nginx' or 'redis'. Azure Container Registry (ACR): your own private images. Other registry: any private registry with credentials."
+    },
+    {
+      "id": "image",
+      "selector": "[aria-label='Image']",
+      "fallbackSelector": "[name='image']",
+      "title": "Specify the container image",
+      "explanation": "Enter the full image reference, e.g. 'mcr.microsoft.com/azuredocs/aci-helloworld' or 'myregistry.azurecr.io/myapp:v1.2'. Always pin to a specific tag — avoid 'latest' in production as it changes without warning."
+    },
+    {
+      "id": "cpu-memory",
+      "selector": "[aria-label='Number of cores']",
+      "fallbackSelector": "[name='cpu']",
+      "title": "Set CPU and memory",
+      "explanation": "Start with the minimum your app needs and scale up if you see performance issues. Each vCPU comes with up to 3.5 GB RAM. ACI does not autoscale — if you need scaling, use AKS or Azure Container Apps instead."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "The container starts within seconds. View logs and connect to the container shell via the portal under 'Containers → Logs' and 'Connect'. To persist data across restarts, mount an Azure Files share as a volume."
+    }
+  ]
+}

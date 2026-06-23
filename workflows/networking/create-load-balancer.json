@@ -1,0 +1,58 @@
+{
+  "id": "networking/create-load-balancer",
+  "title": "Create a Load Balancer",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.LoadBalancer-ARM",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "A Standard Load Balancer is billed per rule and per GB of data processed. The Basic SKU is free but lacks availability zones and SLA. Always use Standard for production workloads."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the Load Balancer in the same Resource Group as the VMs or Scale Set it will distribute traffic to. This simplifies management and keeps network resources co-located."
+    },
+    {
+      "id": "lb-name",
+      "selector": "[aria-label='Name']",
+      "fallbackSelector": "[name='loadBalancerName']",
+      "title": "Give the Load Balancer a name",
+      "explanation": "Use a descriptive name like 'lb-web-prod' or 'lb-api-westeurope'. The name should reflect the workload it fronts, not the backend VMs (those may change)."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Choose a region",
+      "explanation": "The Load Balancer must be in the same region as the backend VMs. An Azure Load Balancer is a regional service — for global load balancing use Azure Front Door or Traffic Manager."
+    },
+    {
+      "id": "sku",
+      "selector": "[aria-label='SKU']",
+      "fallbackSelector": "[data-telemetryid='SkuSelector']",
+      "title": "Choose the SKU",
+      "explanation": "Standard SKU: supports Availability Zones, outbound rules, HTTPS health probes, and comes with an SLA. Basic SKU: free but no zone support and no SLA. Always choose Standard for production."
+    },
+    {
+      "id": "type",
+      "selector": "[aria-label='Type']",
+      "fallbackSelector": "[data-telemetryid='TypeSelector']",
+      "title": "Choose Public or Internal",
+      "explanation": "Public: distributes internet-facing traffic (needs a Public IP). Internal: distributes traffic within a VNet, e.g. between an API layer and a database tier. Never expose internal services publicly."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "After creation, configure: (1) a Frontend IP, (2) a Backend Pool with your VMs, (3) a Health Probe, and (4) Load Balancing Rules. All four are required before traffic flows."
+    }
+  ]
+}

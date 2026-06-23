@@ -1,0 +1,58 @@
+{
+  "id": "identity/assign-rbac",
+  "title": "Assign an RBAC Role",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/",
+  "steps": [
+    {
+      "id": "navigate-resource",
+      "selector": "[aria-label='Search resources, services, and docs']",
+      "fallbackSelector": "#searchbox",
+      "title": "Navigate to the resource or scope",
+      "explanation": "RBAC roles are assigned at a specific scope: Management Group, Subscription, Resource Group, or individual resource. The lower the scope, the more targeted the permission. Always assign at the lowest scope needed (principle of least privilege)."
+    },
+    {
+      "id": "iam-menu",
+      "selector": "[aria-label='Access control (IAM)']",
+      "fallbackSelector": "[data-telemetryid='AccessControl']",
+      "title": "Open Access control (IAM)",
+      "explanation": "Every Azure resource has an 'Access control (IAM)' blade in the left menu. This is where you manage who has access and what they can do. It shows all current role assignments at this scope."
+    },
+    {
+      "id": "add-role",
+      "selector": "button[aria-label='Add role assignment']",
+      "fallbackSelector": "button[data-telemetryid='AddRoleAssignment']",
+      "title": "Click Add role assignment",
+      "explanation": "This opens the role assignment wizard. You will select a role, then choose who gets it. You can add multiple assignments — one per role and per user/group/service principal."
+    },
+    {
+      "id": "role",
+      "selector": "[aria-label='Role']",
+      "fallbackSelector": "[data-telemetryid='RoleSelector']",
+      "title": "Choose a role",
+      "explanation": "Common roles: Owner (full access + can assign roles), Contributor (full access, cannot assign roles), Reader (read-only). Use built-in roles where possible. Custom roles are available but harder to maintain. For specific services, use service-scoped roles like 'Storage Blob Data Contributor'."
+    },
+    {
+      "id": "members",
+      "selector": "[aria-label='Members']",
+      "fallbackSelector": "[data-telemetryid='MembersTab']",
+      "title": "Go to the Members tab",
+      "explanation": "Here you select who receives the role. You can assign to: a User, a Group (preferred — easier to manage at scale), a Service Principal (for applications), or a Managed Identity (for Azure resources that need to access other resources)."
+    },
+    {
+      "id": "select-members",
+      "selector": "button[aria-label='Select members']",
+      "fallbackSelector": "button[data-telemetryid='SelectMembers']",
+      "title": "Click Select members",
+      "explanation": "Search by name or email address. For applications, search by the App Registration name. For Azure services (VMs, Functions), search by the resource name to find its managed identity."
+    },
+    {
+      "id": "review-assign",
+      "selector": "button[aria-label='Review + assign']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndAssign']",
+      "title": "Click Review + assign",
+      "explanation": "Role assignments take effect within a few minutes. If you assigned to a Group, all current and future group members inherit the role. To audit all assignments across your subscription, use 'Subscriptions → Access control (IAM) → Role assignments'."
+    }
+  ]
+}

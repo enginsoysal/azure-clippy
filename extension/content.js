@@ -1,19 +1,26 @@
 const URL_WORKFLOW_MAP = {
   '#create/Microsoft.VirtualMachine':                           'compute/create-vm',
+  '#create/Microsoft.VMSSWizard':                               'compute/create-vmss',
   '#create/Microsoft.VirtualNetwork':                           'networking/create-vnet',
   '#create/Microsoft.Network/networkSecurityGroups':            'networking/create-nsg',
-  '#create/Microsoft.Storage/storageAccounts':                  'storage/create-storage-account',
+  '#create/Microsoft.LoadBalancer-ARM':                         'networking/create-load-balancer',
+  '#create/Microsoft.StorageAccount-ARM':                       'storage/create-storage-account',
   '#create/Microsoft.Web/WebApps':                              'app-services/create-app-service',
+  '#create/Microsoft.AppServicePlanCreate':                     'app-services/create-app-service-plan',
   '#create/Microsoft.ContainerService/ManagedClusters':         'containers/create-aks',
-  '#create/Microsoft.ContainerInstance/containerGroups':        'containers/create-container-instance',
+  '#create/Microsoft.ContainerInstancesWizard':                 'containers/create-container-instance',
+  '#create/Microsoft.ContainerRegistry':                        'containers/create-container-registry',
+  '#create/Microsoft.SQLDatabase':                              'databases/create-sql-database',
+  '#create/Microsoft.DocumentDB':                               'databases/create-cosmos-db',
+  'Microsoft_AAD_RegisteredApps/CreateApplicationBlade':        'identity/create-app-registration',
 };
 
 let activeDriver = null;
 
 function detectCurrentWorkflow() {
-  const hash = window.location.hash;
+  const url = window.location.href;
   for (const [pattern, workflowId] of Object.entries(URL_WORKFLOW_MAP)) {
-    if (hash.includes(pattern)) return workflowId;
+    if (url.includes(pattern)) return workflowId;
   }
   return null;
 }
@@ -36,11 +43,13 @@ async function runWorkflow(workflow) {
     activeDriver = null;
   }
 
+  chrome.runtime.sendMessage({ type: 'WORKFLOW_STARTED', title: workflow.title });
+
   const steps = [];
   for (const step of workflow.steps) {
     const el = await waitForElement([step.selector, step.fallbackSelector].filter(Boolean));
     if (!el) {
-      console.warn(`[Azure Clippy] Selector niet gevonden voor stap: ${step.title}`);
+      console.warn(`[Azure Clippy] Selector not found for step: ${step.title}`);
       continue;
     }
     steps.push({
@@ -57,7 +66,10 @@ async function runWorkflow(workflow) {
   activeDriver = window.driver.js.driver({
     showProgress: true,
     steps,
-    onDestroyStarted: () => { activeDriver = null; },
+    onDestroyStarted: () => {
+      activeDriver = null;
+      chrome.runtime.sendMessage({ type: 'WORKFLOW_DONE', title: workflow.title });
+    },
   });
 
   activeDriver.drive();
@@ -73,5 +85,11 @@ chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === 'GET_SUGGESTED_WORKFLOW') {
     const suggested = detectCurrentWorkflow();
     chrome.runtime.sendMessage({ type: 'SUGGESTED_WORKFLOW', workflowId: suggested });
+  }
+  if (msg.type === 'WORKFLOW_STARTED') {
+    if (window.__clippyShowWorkflowStart) window.__clippyShowWorkflowStart(msg.title);
+  }
+  if (msg.type === 'WORKFLOW_DONE') {
+    if (window.__clippyShowWorkflowDone) window.__clippyShowWorkflowDone(msg.title);
   }
 });

@@ -1,0 +1,58 @@
+{
+  "id": "app-services/create-app-service-plan",
+  "title": "Create an App Service Plan",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.AppServicePlanCreate",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "The App Service Plan is what you actually pay for — not the individual App Services. One plan can host multiple App Services, so the cost is shared across all apps running on it."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the App Service Plan in the same Resource Group as the App Services that will use it. If you plan to share a plan across multiple projects, place it in a shared infrastructure Resource Group."
+    },
+    {
+      "id": "plan-name",
+      "selector": "[aria-label='Name']",
+      "fallbackSelector": "[name='appServicePlanName']",
+      "title": "Give the plan a name",
+      "explanation": "Use a name that reflects the size and environment, e.g. 'asp-prod-standard' or 'asp-dev-free'. You may host many apps on this plan, so the name should describe the plan, not a single app."
+    },
+    {
+      "id": "os",
+      "selector": "[aria-label='Operating System']",
+      "fallbackSelector": "[data-telemetryid='OperatingSystem']",
+      "title": "Choose the Operating System",
+      "explanation": "Windows: supports .NET Framework, .NET Core, ASP.NET, PHP, Node.js. Linux: supports .NET Core, Node.js, Python, Ruby, PHP, Java, custom containers. Linux plans are generally cheaper. You cannot mix OS types on a single plan."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Choose a region",
+      "explanation": "Choose the same region as your database and other backend services. All App Services on this plan will run in this region. You cannot move a plan to another region later."
+    },
+    {
+      "id": "pricing-tier",
+      "selector": "[aria-label='Pricing plan']",
+      "fallbackSelector": "[data-telemetryid='PricingTier']",
+      "title": "Choose the Pricing tier",
+      "explanation": "Free/Shared: dev/test only, limited CPU minutes, no custom domains. Basic: production-ready, manual scaling. Standard: autoscaling, staging slots, daily backups. Premium: higher performance, more slots, VNet integration. Choose the tier that matches your SLA needs."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "After creation, you can create App Services on this plan or move existing App Services to it. You can scale the plan up (bigger VM) or out (more instances) at any time without downtime."
+    }
+  ]
+}

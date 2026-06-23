@@ -1,0 +1,58 @@
+{
+  "id": "storage/create-blob-container",
+  "title": "Create a Blob Container",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/",
+  "steps": [
+    {
+      "id": "navigate-storage",
+      "selector": "[aria-label='Storage accounts']",
+      "fallbackSelector": "[data-telemetryid='StorageAccounts']",
+      "title": "Open Storage accounts",
+      "explanation": "A Blob Container lives inside a Storage Account. You must have a Storage Account before creating a container. If you don't have one yet, use the 'Create a Storage Account' workflow first."
+    },
+    {
+      "id": "select-account",
+      "selector": ".fxs-blade-firstblade .azc-grid-row",
+      "fallbackSelector": "[role='row']",
+      "title": "Select your Storage Account",
+      "explanation": "Click the Storage Account where you want to create the container. All containers within one account share the same access keys and redundancy settings."
+    },
+    {
+      "id": "containers-menu",
+      "selector": "[aria-label='Containers']",
+      "fallbackSelector": "[data-telemetryid='Containers']",
+      "title": "Open Containers",
+      "explanation": "In the left menu of the Storage Account, click 'Containers' under the Data storage section. This shows all existing containers and lets you create new ones."
+    },
+    {
+      "id": "new-container",
+      "selector": "button[aria-label='+ Container']",
+      "fallbackSelector": "button[data-telemetryid='AddContainer']",
+      "title": "Click + Container",
+      "explanation": "This opens the new container panel. A storage account can hold unlimited containers, and each container can hold unlimited blobs (files)."
+    },
+    {
+      "id": "container-name",
+      "selector": "[aria-label='Name']",
+      "fallbackSelector": "[name='containerName']",
+      "title": "Give the container a name",
+      "explanation": "Container names must be lowercase, 3-63 characters, and can contain letters, digits, and hyphens. The name becomes part of the URL: accountname.blob.core.windows.net/containername."
+    },
+    {
+      "id": "access-level",
+      "selector": "[aria-label='Public access level']",
+      "fallbackSelector": "[data-telemetryid='PublicAccessLevel']",
+      "title": "Set the Public access level",
+      "explanation": "Private: no anonymous access (recommended for most cases). Blob: anyone can read individual blobs if they know the URL — useful for static assets like images. Container: anyone can list and read all blobs. Never set Container-level access for sensitive data."
+    },
+    {
+      "id": "create",
+      "selector": "button[aria-label='Create']",
+      "fallbackSelector": "button[data-telemetryid='CreateContainer']",
+      "title": "Click Create",
+      "explanation": "The container is created instantly. You can now upload blobs via the portal, Azure Storage Explorer, AzCopy, or the Azure SDK. Use Lifecycle Management policies to automatically tier or delete old blobs."
+    }
+  ]
+}

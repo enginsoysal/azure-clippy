@@ -1,0 +1,58 @@
+{
+  "id": "databases/create-sql-database",
+  "title": "Create a SQL Database",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.SQLDatabase",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "Azure SQL Database pricing depends on the service tier and compute model (DTU or vCore). The vCore model lets you choose compute and storage independently and is recommended for production. Serverless tier scales to zero when idle — ideal for dev/test."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the SQL Database and its logical server in the same Resource Group as the application that uses it. This keeps costs and access control clear per project."
+    },
+    {
+      "id": "db-name",
+      "selector": "[aria-label='Database name']",
+      "fallbackSelector": "[name='databaseName']",
+      "title": "Give the database a name",
+      "explanation": "The database name is used in connection strings. Keep it descriptive and environment-specific, e.g. 'myapp-prod' or 'myapp-dev'. The name must be unique within the logical server."
+    },
+    {
+      "id": "server",
+      "selector": "[aria-label='Server']",
+      "fallbackSelector": "[data-telemetryid='ServerSelector']",
+      "title": "Select or create a logical server",
+      "explanation": "A logical SQL server is a management container for multiple databases — it is not a VM. It defines the admin login, firewall rules, and region. Multiple databases can share one server. Place the server in the same region as your application."
+    },
+    {
+      "id": "compute-tier",
+      "selector": "[aria-label='Compute + storage']",
+      "fallbackSelector": "[data-telemetryid='ServiceTier']",
+      "title": "Configure compute and storage",
+      "explanation": "General Purpose: balanced CPU and memory for most workloads. Business Critical: in-memory OLTP, higher IOPS, built-in read replica. Hyperscale: up to 100 TB storage, fast backups. Start with General Purpose Serverless for dev — it scales to zero when not in use."
+    },
+    {
+      "id": "backup-redundancy",
+      "selector": "[aria-label='Backup storage redundancy']",
+      "fallbackSelector": "[data-telemetryid='BackupRedundancy']",
+      "title": "Choose backup redundancy",
+      "explanation": "Locally redundant: backups stored in one region — cheapest. Zone-redundant: backups spread across availability zones. Geo-redundant: backups in a paired region — required for geo-restore after a regional outage. Choose based on your recovery objectives."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "After creation, configure the server firewall to allow your application's IP or Azure services. Use connection string from 'Settings → Connection strings'. Enable Microsoft Entra authentication instead of SQL login for better security."
+    }
+  ]
+}

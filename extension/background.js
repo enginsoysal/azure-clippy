@@ -20,4 +20,10 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
       .catch(err => sendResponse({ ok: false, error: err.message }));
     return true;
   }
+
+  if (msg.type === 'OPEN_SIDEBAR') {
+    chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+      if (tab) chrome.sidePanel.open({ windowId: tab.windowId });
+    });
+  }
 });

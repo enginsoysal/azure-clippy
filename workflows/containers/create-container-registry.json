@@ -1,0 +1,51 @@
+{
+  "id": "containers/create-container-registry",
+  "title": "Create a Container Registry",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.ContainerRegistry",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "Azure Container Registry (ACR) is billed per storage used and per operation. Image pulls from AKS or ACI in the same region are free — cross-region pulls incur egress costs."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the registry in a shared infrastructure Resource Group, not in a single application's Resource Group. Multiple teams and services typically share one registry."
+    },
+    {
+      "id": "registry-name",
+      "selector": "[aria-label='Registry name']",
+      "fallbackSelector": "[name='registryName']",
+      "title": "Give the registry a name",
+      "explanation": "The name must be globally unique (5-50 characters, alphanumeric only). It becomes the login server URL: registryname.azurecr.io. Choose a name that reflects your organization, e.g. 'mycompanyprod'."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Location']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Choose a region",
+      "explanation": "Place the registry in the same region as the AKS or ACI workloads that pull images from it. Same-region pulls are free and faster. For global workloads, use Geo-replication (Premium tier)."
+    },
+    {
+      "id": "sku",
+      "selector": "[aria-label='SKU']",
+      "fallbackSelector": "[data-telemetryid='SkuSelector']",
+      "title": "Choose the SKU",
+      "explanation": "Basic: dev/test, 10 GB storage, no geo-replication. Standard: production, 100 GB storage, webhooks. Premium: geo-replication, private link, 500 GB storage, content trust. Use Standard for most production scenarios; Premium for multi-region deployments."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "After creation, grant your AKS cluster or CI/CD pipeline the AcrPull role on this registry — avoid using admin credentials in pipelines. Use 'az acr login' locally or managed identity in Azure-hosted runners."
+    }
+  ]
+}

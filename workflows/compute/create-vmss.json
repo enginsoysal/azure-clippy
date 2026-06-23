@@ -1,0 +1,65 @@
+{
+  "id": "compute/create-vmss",
+  "title": "Create a VM Scale Set",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.VMSSWizard",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "A VM Scale Set (VMSS) bills per VM instance that runs. With autoscaling, costs vary dynamically — set budget alerts on the subscription to avoid surprises."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the Scale Set in the same Resource Group as the load balancer and VNet it will use. This keeps the entire application stack manageable as a unit."
+    },
+    {
+      "id": "vmss-name",
+      "selector": "[aria-label='Virtual machine scale set name']",
+      "fallbackSelector": "[name='vmssName']",
+      "title": "Give the Scale Set a name",
+      "explanation": "Each VM instance in the set gets a name based on this prefix, e.g. 'webscaleset000000', 'webscaleset000001'. Keep the name short to leave room for the instance suffix."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Choose a region",
+      "explanation": "Choose the same region as your load balancer and backend services. For higher availability, use Availability Zones — this spreads instances across physically separate datacenters within the region."
+    },
+    {
+      "id": "orchestration-mode",
+      "selector": "[aria-label='Orchestration mode']",
+      "fallbackSelector": "[data-telemetryid='OrchestrationMode']",
+      "title": "Choose the Orchestration mode",
+      "explanation": "Flexible: each VM is a full Azure VM with its own NIC — best for most workloads and supports mixing VM sizes. Uniform: identical VMs managed as a group — suited for stateless, high-scale scenarios like web frontends."
+    },
+    {
+      "id": "image",
+      "selector": "[aria-label='Image']",
+      "fallbackSelector": "[data-telemetryid='ImageDropDown']",
+      "title": "Choose an Image",
+      "explanation": "All VMs in the Scale Set use the same base image. Choose a consistent image that includes your application or use Azure VM Extensions / cloud-init to configure VMs on startup."
+    },
+    {
+      "id": "scaling",
+      "selector": "[aria-label='Scaling']",
+      "fallbackSelector": "[data-telemetryid='ScalingPolicy']",
+      "title": "Configure scaling",
+      "explanation": "Manual: you control the instance count. Autoscaling: Azure adds or removes instances based on CPU, memory, or custom metrics. Set a minimum and maximum to control costs and ensure availability."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "After deployment, attach a Load Balancer or Application Gateway to distribute traffic across instances. Configure the health probe so Azure automatically replaces unhealthy instances."
+    }
+  ]
+}

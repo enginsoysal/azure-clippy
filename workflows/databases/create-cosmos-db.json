@@ -1,0 +1,58 @@
+{
+  "id": "databases/create-cosmos-db",
+  "title": "Create a Cosmos DB",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.DocumentDB",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Choose your Subscription",
+      "explanation": "Cosmos DB bills per Request Unit (RU/s) provisioned and per GB of storage. Serverless mode bills per operation — ideal for unpredictable or low traffic. Provisioned throughput is better for predictable, high-volume workloads."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the Cosmos DB account in the same Resource Group as the application that reads and writes to it. One account can hold multiple databases and containers."
+    },
+    {
+      "id": "account-name",
+      "selector": "[aria-label='Account Name']",
+      "fallbackSelector": "[name='accountName']",
+      "title": "Give the account a name",
+      "explanation": "The account name must be globally unique (3-44 characters, lowercase letters, digits, hyphens). It becomes the endpoint URL: accountname.documents.azure.com. Choose carefully — it cannot be changed after creation."
+    },
+    {
+      "id": "api",
+      "selector": "[aria-label='API']",
+      "fallbackSelector": "[data-telemetryid='ApiSelector']",
+      "title": "Choose the API",
+      "explanation": "NoSQL (Core): native Cosmos DB with JSON documents — best performance and all features. MongoDB: wire-compatible with MongoDB — migrate existing apps without code changes. PostgreSQL: distributed PostgreSQL (Citus). Cassandra, Gremlin, Table: for specific use cases. Choose NoSQL unless you have an existing app using another API."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Location']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Choose a region",
+      "explanation": "This is the primary write region. Cosmos DB supports global distribution — you can add read regions later at no extra storage cost. Choose the region closest to your primary write workload."
+    },
+    {
+      "id": "capacity-mode",
+      "selector": "[aria-label='Capacity mode']",
+      "fallbackSelector": "[data-telemetryid='CapacityMode']",
+      "title": "Choose the Capacity mode",
+      "explanation": "Provisioned throughput: you reserve RU/s — predictable cost and performance, required for multi-region writes. Serverless: pay per operation — ideal for dev/test or sporadic production traffic. Autoscale (within provisioned): automatically scales between 10% and 100% of your max RU/s."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Click Review + create",
+      "explanation": "Deployment takes 5-10 minutes. After creation, go to 'Data Explorer' to create databases and containers. Choose your partition key carefully — it determines how data is distributed and cannot be changed after container creation."
+    }
+  ]
+}
