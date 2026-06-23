@@ -180,19 +180,24 @@ class ClippyTour {
 
     let top, left, arrowClass = 'arrow-top';
 
-    // Prefer below the element
+    // Prefer below the element; if no room, above; if no room, to the right
     if (rect.bottom + bh + margin < vh) {
-      top       = rect.bottom + pad + margin;
+      top        = rect.bottom + pad + margin;
+      left       = Math.max(margin, Math.min(vw - bw - margin, rect.left));
       arrowClass = 'arrow-top';
     } else if (rect.top - bh - margin > 0) {
-      top       = rect.top - bh - pad - margin;
+      top        = rect.top - bh - pad - margin;
+      left       = Math.max(margin, Math.min(vw - bw - margin, rect.left));
       arrowClass = 'arrow-bottom';
+    } else if (rect.right + bw + margin < vw) {
+      top        = Math.max(margin, Math.min(vh - bh - margin, rect.top));
+      left       = rect.right + pad + margin;
+      arrowClass = 'arrow-left';
     } else {
-      top = Math.max(margin, Math.min(vh - bh - margin, rect.top));
-      arrowClass = rect.left + rect.width / 2 > vw / 2 ? 'arrow-right' : 'arrow-left';
+      top        = Math.max(margin, Math.min(vh - bh - margin, rect.top));
+      left       = Math.max(margin, rect.left - bw - pad - margin);
+      arrowClass = 'arrow-right';
     }
-
-    left = Math.max(margin, Math.min(vw - bw - margin, rect.left));
 
     this.balloon.style.top  = `${top}px`;
     this.balloon.style.left = `${left}px`;
