@@ -17,12 +17,21 @@ function createClippy() {
 
   clippyEl = document.createElement('div');
   clippyEl.id = 'azure-clippy-character';
-  clippyEl.innerHTML = `
-    <div id="azure-clippy-bubble" class="clippy-bubble hidden"></div>
-    <div id="azure-clippy-sprite">
-      <img src="${CLIPPY_SPRITE_URL}" alt="Clippy" draggable="false" />
-    </div>
-  `;
+
+  const bubble = document.createElement('div');
+  bubble.id = 'azure-clippy-bubble';
+  bubble.className = 'clippy-bubble hidden';
+
+  const sprite = document.createElement('div');
+  sprite.id = 'azure-clippy-sprite';
+  const img = document.createElement('img');
+  img.src = CLIPPY_SPRITE_URL;
+  img.alt = 'Clippy';
+  img.draggable = false;
+  sprite.appendChild(img);
+
+  clippyEl.appendChild(bubble);
+  clippyEl.appendChild(sprite);
 
   const style = document.createElement('style');
   style.textContent = `
@@ -38,7 +47,6 @@ function createClippy() {
       font-family: 'Segoe UI', system-ui, sans-serif;
       user-select: none;
     }
-
     #azure-clippy-sprite {
       width: 64px;
       height: 64px;
@@ -46,17 +54,12 @@ function createClippy() {
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
       transition: transform 0.15s ease;
     }
-
-    #azure-clippy-sprite:hover {
-      transform: scale(1.1);
-    }
-
+    #azure-clippy-sprite:hover { transform: scale(1.1); }
     #azure-clippy-sprite img {
       width: 64px;
       height: 64px;
       image-rendering: pixelated;
     }
-
     .clippy-bubble {
       background: #fff;
       border: 2px solid #0078d4;
@@ -69,17 +72,12 @@ function createClippy() {
       box-shadow: 0 4px 16px rgba(0,120,212,0.2);
       animation: clippy-pop 0.2s ease;
     }
-
-    .clippy-bubble.hidden {
-      display: none;
-    }
-
+    .clippy-bubble.hidden { display: none; }
     .clippy-bubble-actions {
       display: flex;
       gap: 8px;
       margin-top: 8px;
     }
-
     .clippy-btn {
       padding: 4px 10px;
       border-radius: 4px;
@@ -90,12 +88,10 @@ function createClippy() {
       cursor: pointer;
       font-family: inherit;
     }
-
     .clippy-btn.secondary {
       background: transparent;
       color: #0078d4;
     }
-
     @keyframes clippy-pop {
       from { opacity: 0; transform: scale(0.8) translateY(8px); }
       to   { opacity: 1; transform: scale(1) translateY(0); }
@@ -105,15 +101,33 @@ function createClippy() {
   document.head.appendChild(style);
   document.body.appendChild(clippyEl);
 
-  document.getElementById('azure-clippy-sprite').addEventListener('click', onClippyClick);
+  sprite.addEventListener('click', onClippyClick);
 
   setTimeout(() => showIdleBubble(), 3000);
 }
 
-function showBubble(html) {
+function makeBubbleContent(text, buttons) {
   const bubble = document.getElementById('azure-clippy-bubble');
   if (!bubble) return;
-  bubble.innerHTML = html;
+  bubble.innerHTML = '';
+
+  const msg = document.createElement('div');
+  msg.innerHTML = text;
+  bubble.appendChild(msg);
+
+  if (buttons && buttons.length) {
+    const actions = document.createElement('div');
+    actions.className = 'clippy-bubble-actions';
+    for (const { label, secondary, onClick } of buttons) {
+      const btn = document.createElement('button');
+      btn.className = 'clippy-btn' + (secondary ? ' secondary' : '');
+      btn.textContent = label;
+      btn.addEventListener('click', onClick);
+      actions.appendChild(btn);
+    }
+    bubble.appendChild(actions);
+  }
+
   bubble.classList.remove('hidden');
   clearTimeout(bubbleTimeout);
 }
@@ -126,13 +140,10 @@ function hideBubble() {
 function showIdleBubble() {
   if (currentWorkflowRunning) return;
   const msg = IDLE_MESSAGES[Math.floor(Math.random() * IDLE_MESSAGES.length)];
-  showBubble(`
-    <div>${msg}</div>
-    <div class="clippy-bubble-actions">
-      <button class="clippy-btn" onclick="document.getElementById('azure-clippy-character').dispatchEvent(new CustomEvent('open-sidebar'))">Show workflows</button>
-      <button class="clippy-btn secondary" onclick="window.__clippyHide()">Dismiss</button>
-    </div>
-  `);
+  makeBubbleContent(msg, [
+    { label: 'Show workflows', onClick: () => { chrome.runtime.sendMessage({ type: 'OPEN_SIDEBAR' }); hideBubble(); } },
+    { label: 'Dismiss', secondary: true, onClick: hideBubble },
+  ]);
   bubbleTimeout = setTimeout(hideBubble, 8000);
 }
 
@@ -142,13 +153,10 @@ function onClippyClick() {
     hideBubble();
     return;
   }
-  showBubble(`
-    <div><strong>Hi, I'm Clippy!</strong><br>I can guide you through any Azure task step by step.</div>
-    <div class="clippy-bubble-actions">
-      <button class="clippy-btn" onclick="window.__clippyOpenSidebar()">Open workflows</button>
-      <button class="clippy-btn secondary" onclick="window.__clippyHide()">Hide me</button>
-    </div>
-  `);
+  makeBubbleContent('<strong>Hi, I\'m Clippy!</strong><br>I can guide you through any Azure task step by step.', [
+    { label: 'Open workflows', onClick: () => { chrome.runtime.sendMessage({ type: 'OPEN_SIDEBAR' }); hideBubble(); } },
+    { label: 'Hide me', secondary: true, onClick: () => { hideBubble(); if (clippyEl) clippyEl.style.display = 'none'; } },
+  ]);
 }
 
 window.__clippyHide = function () {
@@ -163,13 +171,13 @@ window.__clippyOpenSidebar = function () {
 
 window.__clippyShowWorkflowStart = function (title) {
   currentWorkflowRunning = true;
-  showBubble(`<div>Starting: <strong>${title}</strong><br>Follow the highlighted steps!</div>`);
+  makeBubbleContent(`Starting: <strong>${title}</strong><br>Follow the highlighted steps!`, null);
   bubbleTimeout = setTimeout(hideBubble, 5000);
 };
 
 window.__clippyShowWorkflowDone = function (title) {
   currentWorkflowRunning = false;
-  showBubble(`<div>✅ Done! <strong>${title}</strong> completed.<br>Need anything else?</div>`);
+  makeBubbleContent(`✅ Done! <strong>${title}</strong> completed.<br>Need anything else?`, null);
   bubbleTimeout = setTimeout(hideBubble, 6000);
 };
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Azure Clippy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Step-by-step guidance for Azure Portal — powered by the community.",
   "permissions": ["sidePanel", "storage", "tabs"],
   "host_permissions": [
@@ -37,7 +37,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["images/clippy-sprite.png", "workflows-index.json"],
+      "resources": ["images/clippy-sprite.png", "workflows-index.json", "workflows-data.js"],
       "matches": ["https://portal.azure.com/*"]
     }
   ]
