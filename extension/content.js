@@ -137,12 +137,13 @@ class ClippyTour {
   }
 
   _highlightElement(el) {
-    const rect = el.getBoundingClientRect();
-    // Position arrow above the element, horizontally centered
+    const rect  = el.getBoundingClientRect();
+    const arrowW = 46; // shaft (32) + head (14)
+    // Arrow points RIGHT → sits just to the left of the element, vertically centered
     Object.assign(this.ring.style, {
-      display: 'block',
-      top:    `${rect.top - 20}px`,
-      left:   `${rect.left + rect.width / 2 - 10}px`,
+      display: 'flex',
+      top:    `${rect.top + rect.height / 2 - 9}px`,
+      left:   `${rect.left - arrowW - 6}px`,
     });
     this._highlightedEl = el;
   }
