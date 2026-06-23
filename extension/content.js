@@ -138,12 +138,11 @@ class ClippyTour {
 
   _highlightElement(el) {
     const rect = el.getBoundingClientRect();
-    // Position arrow to the left of the element, vertically centered
-    const arrowW = 20;
+    // Position arrow above the element, horizontally centered
     Object.assign(this.ring.style, {
-      display: 'flex',
-      top:    `${rect.top + rect.height / 2 - 10}px`,
-      left:   `${rect.left - arrowW - 8}px`,
+      display: 'block',
+      top:    `${rect.top - 20}px`,
+      left:   `${rect.left + rect.width / 2 - 10}px`,
     });
     this._highlightedEl = el;
   }
@@ -170,11 +169,11 @@ class ClippyTour {
 
   start() {
     this.go(0);
-    chrome.runtime.sendMessage({ type: 'WORKFLOW_STARTED', title: this.workflow.title });
+    if (window.__clippyShowWorkflowStart) window.__clippyShowWorkflowStart();
   }
 
   finish() {
-    chrome.runtime.sendMessage({ type: 'WORKFLOW_DONE', title: this.workflow.title });
+    if (window.__clippyShowWorkflowDone) window.__clippyShowWorkflowDone(this.workflow.title);
     this.destroy();
   }
 
