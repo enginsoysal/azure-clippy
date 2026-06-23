@@ -1,98 +1,100 @@
 # Azure Clippy ☁️
 
-> Stap-voor-stap begeleiding in Azure Portal — gratis, open source, community-driven.
+> Step-by-step guidance for Azure Portal — free, open source, community-driven.
 
-Azure Clippy is een Chrome/Edge-extensie die je door Azure Portal heen loodst. Klik op een workflow, en de extensie markeert exact welk element je moet aanklikken — inclusief uitleg over wat iets is en waarom je het nodig hebt.
+Azure Clippy is a Chrome/Edge extension that guides you through Azure Portal. Click a workflow and the extension highlights exactly which element to click — including an explanation of what it is and why you need it.
 
 ---
 
-## Installeren
+## Install
 
-### Optie 1: Download (aanbevolen)
-1. Download de nieuwste `.zip` van de [Releases-pagina](../../releases)
-2. Pak uit naar een map
-3. Open Edge via `edge://extensions` of Chrome via `chrome://extensions`
-4. Zet **Developer mode** aan (rechtsboven)
-5. Klik **Load unpacked** en selecteer de uitgepakte `extension/` map
+### Option 1: Download (recommended)
+1. Download the latest `.zip` from the [Releases page](../../releases)
+2. Extract to a folder
+3. Open Edge: `edge://extensions` or Chrome: `chrome://extensions`
+4. Enable **Developer mode** (top right)
+5. Click **Load unpacked** and select the extracted `extension/` folder
 
-### Optie 2: Vanuit broncode
+### Option 2: From source
 ```bash
 git clone https://github.com/enginsoysal/azure-clippy.git
 ```
-Laad dan de `extension/` map via Load unpacked (zie stap 3-5 hierboven).
+Then load the `extension/` folder via Load unpacked (steps 3–5 above).
 
 ---
 
-## Hoe werkt het?
+## How it works
 
-1. Navigeer naar [portal.azure.com](https://portal.azure.com)
-2. Klik op het Azure Clippy-icoon in je browser
-3. Zoek of kies een workflow (bijv. "Virtual Machine aanmaken")
-4. Volg de stap-voor-stap begeleiding in de portal
+1. Navigate to [portal.azure.com](https://portal.azure.com)
+2. Click the Azure Clippy icon in your browser toolbar
+3. Search or pick a workflow (e.g. "Create a Virtual Machine")
+4. Follow the step-by-step highlights in the portal
 
-De extensie haalt de workflow-definities live op van deze GitHub-repo — geen server, geen kosten.
+Clippy also appears as a character in the bottom-right corner of the portal, offering tips and quick access to workflows.
+
+The extension fetches workflow definitions live from this GitHub repo — no server, no costs.
 
 ---
 
-## Beschikbare workflows
+## Available workflows
 
-| Categorie | Workflow |
+| Category | Workflows |
 |---|---|
-| Compute | Virtual Machine aanmaken, VM Scale Set aanmaken |
-| Networking | Virtual Network aanmaken, NSG aanmaken, Load Balancer aanmaken |
-| Storage | Storage Account aanmaken, Blob Container aanmaken |
-| App Services | App Service aanmaken, App Service Plan aanmaken |
-| Containers | AKS Cluster aanmaken, Container Instance aanmaken, Container Registry aanmaken |
-| Identity | App Registration aanmaken, RBAC-rol toewijzen |
-| Databases | SQL Database aanmaken, Cosmos DB aanmaken |
+| Compute | Create a Virtual Machine, Create a VM Scale Set |
+| Networking | Create a Virtual Network, Create a Network Security Group, Create a Load Balancer |
+| Storage | Create a Storage Account, Create a Blob Container |
+| App Services | Create an App Service, Create an App Service Plan |
+| Containers | Create an AKS Cluster, Create a Container Instance, Create a Container Registry |
+| Identity | Create an App Registration, Assign an RBAC Role |
+| Databases | Create a SQL Database, Create a Cosmos DB |
 
 ---
 
-## Bijdragen
+## Contributing
 
-Zie je een ontbrekende workflow? Of is een selector gebroken na een Azure Portal-update?
+Missing a workflow? Found a broken selector after an Azure Portal update?
 
-### Nieuwe workflow toevoegen
-1. Fork deze repo
-2. Maak een nieuw JSON-bestand in de juiste map onder `workflows/`
-3. Voeg een entry toe aan `workflows/index.json`
-4. Submit een Pull Request
+### Add a new workflow
+1. Fork this repo
+2. Create a new JSON file in the appropriate folder under `workflows/`
+3. Add an entry to `workflows/index.json`
+4. Submit a Pull Request
 
-### Workflow-sjabloon
+### Workflow template
 ```json
 {
-  "id": "categorie/workflow-naam",
-  "title": "Leesbare naam",
+  "id": "category/workflow-name",
+  "title": "Human-readable title",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#create/...",
   "steps": [
     {
-      "id": "stap-id",
+      "id": "step-id",
       "selector": "[aria-label='...']",
       "fallbackSelector": "[data-telemetryid='...']",
-      "title": "Staptitel",
-      "explanation": "Uitleg over wat dit is en waarom je het nodig hebt."
+      "title": "Step title",
+      "explanation": "Explanation of what this is and why you need it."
     }
   ]
 }
 ```
 
-**Selector-tips:**
-- Gebruik altijd `aria-label` als primaire selector (stabielst)
-- `data-telemetryid` als fallback (Microsoft's eigen attribuut)
-- Nooit gegenereerde CSS class names — die veranderen bij elke portal-update
+### Selector tips
+- Always use `aria-label` as the primary selector — most stable
+- `data-telemetryid` as fallback — Microsoft's own attribute, relatively stable
+- Never use generated CSS class names — they change with every portal update
 
 ---
 
-## Wekelijkse health check
+## Weekly health check
 
-Elke maandag test GitHub Actions automatisch of alle selectors nog werken door Playwright op portal.azure.com te draaien. Bij een gebroken selector wordt automatisch een issue aangemaakt.
+Every Monday at 07:00 UTC, GitHub Actions validates all workflow JSON files automatically. If a workflow is broken or malformed, an issue is created automatically.
 
 [![Health Check](../../actions/workflows/health-check.yml/badge.svg)](../../actions/workflows/health-check.yml)
 
 ---
 
-## Licentie
+## License
 
-MIT — gebruik en aanpassen vrij, ook voor commerciële doeleinden.
+MIT — free to use and modify, including for commercial purposes.
