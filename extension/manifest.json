@@ -37,7 +37,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["images/clippy-sprite.png"],
+      "resources": ["images/clippy-sprite.png", "workflows-index.json"],
       "matches": ["https://portal.azure.com/*"]
     }
   ]

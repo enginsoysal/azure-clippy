@@ -1,3 +1,5 @@
+const GITHUB_RAW = 'https://raw.githubusercontent.com/enginsoysal/azure-clippy/master';
+
 let allWorkflows = [];
 
 const searchEl       = document.getElementById('search');
@@ -34,19 +36,14 @@ function renderWorkflowCard(wf, isSuggested = false) {
 function renderList(workflows) {
   categoryListEl.innerHTML = '';
   const groups = groupByCategory(workflows);
-
   for (const [category, items] of Object.entries(groups)) {
     const group = document.createElement('div');
     group.className = 'category-group';
-
     const catName = document.createElement('div');
     catName.className = 'category-name';
     catName.textContent = category;
     group.appendChild(catName);
-
-    for (const wf of items) {
-      group.appendChild(renderWorkflowCard(wf));
-    }
+    for (const wf of items) group.appendChild(renderWorkflowCard(wf));
     categoryListEl.appendChild(group);
   }
 }
@@ -73,25 +70,25 @@ async function startWorkflow(wf) {
     return;
   }
 
-  chrome.runtime.sendMessage({ type: 'FETCH_WORKFLOW', id: wf.id }, (res) => {
-    if (!res?.ok) {
-      setStatus(`Failed to load workflow: ${res?.error || 'unknown error'}`, 'error');
-      return;
-    }
+  // Try GitHub first, no fallback needed for individual workflows
+  try {
+    const res = await fetch(`${GITHUB_RAW}/workflows/${wf.id}.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const workflow = await res.json();
     setStatus('');
-    const workflow = res.data;
-    if (workflow.startUrl && !tab.url.includes(workflow.startUrl.replace('https://portal.azure.com/', ''))) {
-      chrome.tabs.update(tab.id, { url: workflow.startUrl }, () => {
-        setTimeout(() => sendStartMessage(tab.id, workflow), 2000);
-      });
-    } else {
-      sendStartMessage(tab.id, workflow);
-    }
-  });
-}
 
-function sendStartMessage(tabId, workflow) {
-  chrome.tabs.sendMessage(tabId, { type: 'START_WORKFLOW', workflow });
+    const navigate = workflow.startUrl &&
+      !tab.url.includes(workflow.startUrl.replace('https://portal.azure.com/', ''));
+
+    if (navigate) {
+      await chrome.tabs.update(tab.id, { url: workflow.startUrl });
+      setTimeout(() => chrome.tabs.sendMessage(tab.id, { type: 'START_WORKFLOW', workflow }), 2500);
+    } else {
+      chrome.tabs.sendMessage(tab.id, { type: 'START_WORKFLOW', workflow });
+    }
+  } catch (err) {
+    setStatus(`Could not load workflow: ${err.message}`, 'error');
+  }
 }
 
 function checkSuggestedWorkflow() {
@@ -112,18 +109,34 @@ chrome.runtime.onMessage.addListener((msg) => {
   }
 });
 
-function loadIndex() {
+async function loadIndex() {
   setStatus('Loading workflows...', 'loading');
-  chrome.runtime.sendMessage({ type: 'FETCH_INDEX' }, (res) => {
-    if (!res?.ok) {
-      setStatus('Could not load workflows. Check your internet connection.', 'error');
-      return;
-    }
-    allWorkflows = res.data.workflows;
+
+  // Try GitHub first
+  try {
+    const res = await fetch(`${GITHUB_RAW}/workflows/index.json`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    allWorkflows = data.workflows;
     setStatus('');
     renderList(allWorkflows);
     checkSuggestedWorkflow();
-  });
+    return;
+  } catch (_) {
+    // GitHub unreachable — fall back to bundled index
+  }
+
+  // Fallback: bundled index.json shipped with the extension
+  try {
+    const res = await fetch(chrome.runtime.getURL('workflows-index.json'));
+    const data = await res.json();
+    allWorkflows = data.workflows;
+    setStatus('Offline mode — workflow list may be outdated.');
+    renderList(allWorkflows);
+    checkSuggestedWorkflow();
+  } catch (err) {
+    setStatus('Could not load workflows.', 'error');
+  }
 }
 
 loadIndex();
