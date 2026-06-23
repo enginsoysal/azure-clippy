@@ -47,12 +47,9 @@
   height: 12px;
   background: #0078d4;
   transform: rotate(45deg);
+  right: 28px;
+  bottom: -6px;
 }
-
-#clippy-tour-balloon.arrow-top::before    { top: -6px;    left: 20px; }
-#clippy-tour-balloon.arrow-bottom::before { bottom: -6px; left: 20px; }
-#clippy-tour-balloon.arrow-left::before   { left: -6px;   top: 20px; }
-#clippy-tour-balloon.arrow-right::before  { right: -6px;  top: 20px; }
 
 /* Header bar */
 #clippy-tour-header {

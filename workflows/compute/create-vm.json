@@ -7,64 +7,64 @@
   "steps": [
     {
       "id": "subscription",
-      "selector": "[aria-label='Subscription']",
-      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "selector": "[aria-label=\"Subscription\"][role=\"button\"], [aria-label*=\"Subscription\"][aria-haspopup]",
+      "fallbackSelector": "select[aria-label*=\"Subscription\"], [data-telemetryid=\"fxcSubs\"]",
       "title": "Choose your Subscription",
       "explanation": "A subscription is your billing container in Azure. All costs for this VM will be charged here. You can have multiple subscriptions — for example, one for production and one for dev/test."
     },
     {
       "id": "resource-group",
-      "selector": "[aria-label='Resource group']",
-      "fallbackSelector": "[name='resourceGroup']",
+      "selector": "[aria-label=\"Resource group\"][role=\"button\"], [aria-label*=\"Resource group\"][aria-haspopup]",
+      "fallbackSelector": "select[aria-label*=\"Resource group\"], [data-telemetryid*=\"esourceGroup\"]",
       "title": "Select or create a Resource Group",
       "explanation": "A Resource Group is a logical folder for related Azure resources. Tip: keep all resources of one project in the same Resource Group — that way you can manage and delete them together."
     },
     {
       "id": "vm-name",
-      "selector": "[aria-label='Virtual machine name']",
-      "fallbackSelector": "[name='virtualMachineName']",
+      "selector": "input[aria-label=\"Virtual machine name\"], input[id*=\"virtualMachineName\"]",
+      "fallbackSelector": "input[placeholder*=\"machine name\"], input[name*=\"machineName\"]",
       "title": "Give the VM a name",
       "explanation": "The VM name also becomes the OS hostname. Use a consistent naming convention, e.g. 'prod-web-01' or 'dev-db-01'. Maximum 15 characters for Windows, 64 for Linux."
     },
     {
       "id": "region",
-      "selector": "[aria-label='Region']",
-      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "selector": "[aria-label=\"Region\"][role=\"button\"], [aria-label*=\"Region\"][aria-haspopup]",
+      "fallbackSelector": "select[aria-label*=\"Region\"], [data-telemetryid*=\"egion\"]",
       "title": "Choose a region",
       "explanation": "The region determines where your VM physically runs. Choose a region close to your users for low latency. West Europe (Amsterdam) and North Europe (Dublin) are popular choices in Europe."
     },
     {
       "id": "image",
-      "selector": "[aria-label='Image']",
-      "fallbackSelector": "[data-telemetryid='ImageDropDown']",
+      "selector": "[aria-label=\"Image\"][role=\"button\"], [aria-label*=\"See all images\"]",
+      "fallbackSelector": "[data-telemetryid*=\"mage\"], button[aria-label*=\"image\"]",
       "title": "Choose an Image (OS)",
       "explanation": "The image defines the operating system of your VM. Windows Server is suitable for .NET workloads; Ubuntu or RHEL for Linux. Marketplace images may include additional licensing costs."
     },
     {
       "id": "size",
-      "selector": "[aria-label='Size']",
-      "fallbackSelector": "button[data-telemetryid='VmSize']",
+      "selector": "[aria-label=\"Size\"][role=\"button\"], button[aria-label*=\"VM size\"], [aria-label*=\"See all sizes\"]",
+      "fallbackSelector": "[data-telemetryid*=\"ize\"], button[aria-label*=\"size\"]",
       "title": "Choose a VM size",
       "explanation": "The size determines the number of vCPUs, RAM, and the price. B-series are cheap for dev/test. D-series are general purpose for production. Start small — you can always scale up later."
     },
     {
       "id": "username",
-      "selector": "[aria-label='Username']",
-      "fallbackSelector": "[name='adminUsername']",
+      "selector": "input[aria-label=\"Username\"], input[id*=\"adminUsername\"], input[name*=\"dminUsername\"]",
+      "fallbackSelector": "input[placeholder*=\"Username\"], input[autocomplete*=\"username\"]",
       "title": "Set the admin username",
       "explanation": "This is the username for the first administrator account on the VM. Avoid common names like 'admin' or 'administrator' — this reduces the risk of brute-force attacks."
     },
     {
       "id": "auth-type",
-      "selector": "[aria-label='Authentication type']",
-      "fallbackSelector": "[data-telemetryid='AuthType']",
+      "selector": "[aria-label=\"Authentication type\"][role=\"radiogroup\"], fieldset[aria-label*=\"Authentication\"]",
+      "fallbackSelector": "input[type=\"radio\"][value*=\"Password\"], input[type=\"radio\"][value*=\"SSH\"]",
       "title": "Choose the authentication type",
       "explanation": "SSH public key is more secure than a password for Linux VMs. For Windows, Remote Desktop Password is the default. Prefer SSH keys and store passwords in Azure Key Vault."
     },
     {
       "id": "review-create",
-      "selector": "button[aria-label='Review + create']",
-      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "selector": "button[aria-label=\"Review + create\"], a[aria-label=\"Review + create\"]",
+      "fallbackSelector": "button[data-telemetryid*=\"eview\"], li[aria-label*=\"Review + create\"]",
       "title": "Click Review + create",
       "explanation": "Azure first validates your settings. Once everything is green, click 'Create'. Deployment typically takes 2-5 minutes. Monitor progress via the Notifications bell in the top right corner."
     }

@@ -120,10 +120,10 @@ class ClippyTour {
     nextBtn.textContent = idx === this.steps.length - 1 ? 'Finish ✓' : 'Next →';
     prevBtn.style.visibility = idx === 0 ? 'hidden' : 'visible';
 
-    // Position center-screen while we find the element
-    this._positionCenter();
+    // Anchor balloon immediately — fixed position, never blocks form
+    this._positionFixed();
 
-    // Now find and highlight the element
+    // Find and highlight the element
     const selectors = [step.selector, step.fallbackSelector].filter(Boolean);
     const el = await waitForElement(selectors, 8000);
 
@@ -131,7 +131,6 @@ class ClippyTour {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
       await new Promise(r => setTimeout(r, 300));
       this._highlightElement(el);
-      this._position(el);
     } else {
       this._clearHighlight();
     }
@@ -155,55 +154,18 @@ class ClippyTour {
     this._highlightedEl = null;
   }
 
-  _positionCenter() {
-    this.balloon.style.top       = '50%';
-    this.balloon.style.left      = '50%';
-    this.balloon.style.transform = 'translate(-50%, -50%)';
-    this.balloon.className       = '';
+  _positionFixed() {
+    // Always anchor balloon at bottom-right, above Clippy — never blocks the form
+    this.balloon.style.top       = '';
+    this.balloon.style.left      = '';
+    this.balloon.style.bottom    = '160px';
+    this.balloon.style.right     = '24px';
+    this.balloon.style.transform = '';
+    this.balloon.className       = 'arrow-bottom';
   }
 
-  _position(el) {
-    const el2 = el || this._highlightedEl;
-    if (!el2) {
-      this._positionCenter();
-      return;
-    }
-
-    this.balloon.style.transform = '';
-    const rect   = el2.getBoundingClientRect();
-    const bw     = this.balloon.offsetWidth  || 300;
-    const bh     = this.balloon.offsetHeight || 180;
-    const vw     = window.innerWidth;
-    const vh     = window.innerHeight;
-    const margin = 16;
-    const pad    = 4;
-
-    let top, left, arrowClass = 'arrow-top';
-
-    // Prefer below the element; if no room, above; if no room, to the right
-    if (rect.bottom + bh + margin < vh) {
-      top        = rect.bottom + pad + margin;
-      left       = Math.max(margin, Math.min(vw - bw - margin, rect.left));
-      arrowClass = 'arrow-top';
-    } else if (rect.top - bh - margin > 0) {
-      top        = rect.top - bh - pad - margin;
-      left       = Math.max(margin, Math.min(vw - bw - margin, rect.left));
-      arrowClass = 'arrow-bottom';
-    } else if (rect.right + bw + margin < vw) {
-      top        = Math.max(margin, Math.min(vh - bh - margin, rect.top));
-      left       = rect.right + pad + margin;
-      arrowClass = 'arrow-left';
-    } else {
-      top        = Math.max(margin, Math.min(vh - bh - margin, rect.top));
-      left       = Math.max(margin, rect.left - bw - pad - margin);
-      arrowClass = 'arrow-right';
-    }
-
-    this.balloon.style.top  = `${top}px`;
-    this.balloon.style.left = `${left}px`;
-    this.balloon.className  = arrowClass;
-
-    // Update ring position too
+  _position() {
+    this._positionFixed();
     if (this._highlightedEl) this._highlightElement(this._highlightedEl);
   }
 
