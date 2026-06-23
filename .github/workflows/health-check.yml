@@ -5,6 +5,10 @@ on:
     - cron: '0 7 * * 1'   # Every Monday at 07:00 UTC
   workflow_dispatch:        # Can also be triggered manually
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   health-check:
     name: Verify workflow selectors
@@ -17,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
           cache-dependency-path: health-check/package-lock.json
 
