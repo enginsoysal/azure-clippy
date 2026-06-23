@@ -29,16 +29,13 @@ jobs:
         run: npm ci
         working-directory: health-check
 
-      - name: Install Playwright browsers
-        run: npx playwright install chromium --with-deps
+      - name: Install Playwright
+        run: npx playwright install --with-deps
         working-directory: health-check
 
       - name: Run health checks
         run: npx playwright test
         working-directory: health-check
-        env:
-          AZURE_USER: ${{ secrets.AZURE_TEST_USER }}
-          AZURE_PASS: ${{ secrets.AZURE_TEST_PASS }}
 
       - name: Upload Playwright report
         if: always()
@@ -59,22 +56,21 @@ jobs:
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `[Health Check] Broken workflow selector(s) — ${date}`,
+              title: `[Health Check] Broken workflow(s) detected — ${date}`,
               labels: ['broken-workflow', 'needs-fix'],
               body: [
                 '## Weekly Health Check Failed',
                 '',
-                `The health check on **${date}** detected one or more broken selectors.`,
-                'This means the Azure Portal has been updated and some CSS/ARIA selectors have changed.',
+                `The health check on **${date}** detected one or more broken or invalid workflows.`,
                 '',
                 `**[View details in the workflow run](${runUrl})**`,
                 '',
-                '## Action required',
+                '## What to check',
                 '',
                 '1. Open the Playwright report (artifact in the workflow run)',
-                '2. Find the broken step in the corresponding workflow JSON file',
-                '3. Update the `selector` or `fallbackSelector` to the new value',
-                '4. Update `lastVerified` in the JSON file to today\'s date',
+                '2. Find the failing test — it will name the workflow and the exact problem',
+                '3. Fix the workflow JSON file (update selector, add missing field, etc.)',
+                '4. Update `lastVerified` to today\'s date',
                 '5. Submit a pull request',
                 '',
                 '_This issue was automatically created by the Azure Clippy health check._',
