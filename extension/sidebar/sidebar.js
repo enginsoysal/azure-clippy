@@ -76,7 +76,6 @@ searchEl.addEventListener('input', () => {
 });
 
 async function startWorkflow(wf) {
-  // Load from bundled data — no network needed
   const workflow = WORKFLOWS_DATA[wf.id];
   if (!workflow) {
     setStatus(`Workflow not found: ${wf.id}`, 'error');
@@ -84,24 +83,49 @@ async function startWorkflow(wf) {
   }
 
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  if (!tab?.url?.includes('portal.azure.com')) {
-    setStatus('Open portal.azure.com to start a workflow.', 'error');
+  const tabId = tab?.id;
+  if (!tabId) return;
+
+  const targetUrl = workflow.startUrl || 'https://portal.azure.com/';
+  const alreadyThere = tab.url && tab.url.startsWith('https://portal.azure.com') &&
+    tab.url.includes(targetUrl.replace('https://portal.azure.com', '').split('?')[0]);
+
+  if (alreadyThere) {
+    chrome.tabs.sendMessage(tabId, { type: 'START_WORKFLOW', workflow });
     return;
   }
 
-  setStatus('');
+  setStatus('Navigating… log in if prompted, then the guide starts automatically.', 'loading');
+  chrome.tabs.update(tabId, { url: targetUrl });
+  waitForPortalLoad(tabId, workflow);
+}
 
-  const needsNav = workflow.startUrl &&
-    !tab.url.includes(workflow.startUrl.replace('https://portal.azure.com/', ''));
+function waitForPortalLoad(tabId, workflow) {
+  let portalReady = false;
 
-  if (needsNav) {
-    await chrome.tabs.update(tab.id, { url: workflow.startUrl });
+  const listener = (updatedTabId, changeInfo, tab) => {
+    if (updatedTabId !== tabId) return;
+    if (changeInfo.status !== 'complete') return;
+    if (!tab.url || !tab.url.startsWith('https://portal.azure.com')) return;
+    if (portalReady) return;
+
+    portalReady = true;
+    chrome.tabs.onUpdated.removeListener(listener);
+    setStatus('');
+
+    // Small delay so portal's React shell finishes rendering
     setTimeout(() => {
-      chrome.tabs.sendMessage(tab.id, { type: 'START_WORKFLOW', workflow });
-    }, 3000);
-  } else {
-    chrome.tabs.sendMessage(tab.id, { type: 'START_WORKFLOW', workflow });
-  }
+      chrome.tabs.sendMessage(tabId, { type: 'START_WORKFLOW', workflow });
+    }, 1500);
+  };
+
+  chrome.tabs.onUpdated.addListener(listener);
+
+  // Safety: stop listening after 10 minutes
+  setTimeout(() => {
+    chrome.tabs.onUpdated.removeListener(listener);
+    setStatus('');
+  }, 600000);
 }
 
 function checkSuggestedWorkflow() {
