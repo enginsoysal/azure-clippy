@@ -1,6 +1,27 @@
 const GITHUB_RAW = 'https://raw.githubusercontent.com/enginsoysal/azure-clippy/master';
 
-let allWorkflows = [];
+// Workflow index embedded directly — no fetch needed for the list.
+// Update this when workflows/index.json changes.
+const WORKFLOW_INDEX = [
+  { id: "compute/create-vm",                   title: "Create a Virtual Machine",       category: "Compute",      tags: ["vm","virtual machine","iaas","server","compute"] },
+  { id: "compute/create-vmss",                 title: "Create a VM Scale Set",          category: "Compute",      tags: ["vmss","scale set","autoscale","compute"] },
+  { id: "networking/create-vnet",              title: "Create a Virtual Network",        category: "Networking",   tags: ["vnet","virtual network","networking"] },
+  { id: "networking/create-nsg",               title: "Create a Network Security Group", category: "Networking",   tags: ["nsg","firewall","security group","network","rules"] },
+  { id: "networking/create-load-balancer",     title: "Create a Load Balancer",          category: "Networking",   tags: ["load balancer","lb","traffic","balancing"] },
+  { id: "storage/create-storage-account",      title: "Create a Storage Account",        category: "Storage",      tags: ["storage","account","blob","files","queues","tables"] },
+  { id: "storage/create-blob-container",       title: "Create a Blob Container",         category: "Storage",      tags: ["blob","container","storage","object storage"] },
+  { id: "app-services/create-app-service",     title: "Create an App Service",           category: "App Services", tags: ["app service","web app","webapp","paas","website","api"] },
+  { id: "app-services/create-app-service-plan",title: "Create an App Service Plan",      category: "App Services", tags: ["app service plan","hosting plan","paas","compute plan"] },
+  { id: "containers/create-aks",               title: "Create an AKS Cluster",           category: "Containers",   tags: ["aks","kubernetes","k8s","cluster","containers"] },
+  { id: "containers/create-container-instance",title: "Create a Container Instance",     category: "Containers",   tags: ["aci","container instance","docker","container"] },
+  { id: "containers/create-container-registry",title: "Create a Container Registry",     category: "Containers",   tags: ["acr","container registry","docker","images","registry"] },
+  { id: "identity/create-app-registration",    title: "Create an App Registration",      category: "Identity",     tags: ["app registration","aad","entra","oauth","service principal","client id"] },
+  { id: "identity/assign-rbac",                title: "Assign an RBAC Role",             category: "Identity",     tags: ["rbac","role","role assignment","iam","access","permissions"] },
+  { id: "databases/create-sql-database",       title: "Create a SQL Database",           category: "Databases",    tags: ["sql","database","azure sql","relational","db"] },
+  { id: "databases/create-cosmos-db",          title: "Create a Cosmos DB",              category: "Databases",    tags: ["cosmos","cosmosdb","nosql","mongodb","database"] },
+];
+
+let allWorkflows = [...WORKFLOW_INDEX];
 
 const searchEl       = document.getElementById('search');
 const categoryListEl = document.getElementById('category-list');
@@ -70,24 +91,23 @@ async function startWorkflow(wf) {
     return;
   }
 
-  // Try GitHub first, no fallback needed for individual workflows
   try {
     const res = await fetch(`${GITHUB_RAW}/workflows/${wf.id}.json`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const workflow = await res.json();
     setStatus('');
 
-    const navigate = workflow.startUrl &&
+    const needsNav = workflow.startUrl &&
       !tab.url.includes(workflow.startUrl.replace('https://portal.azure.com/', ''));
 
-    if (navigate) {
+    if (needsNav) {
       await chrome.tabs.update(tab.id, { url: workflow.startUrl });
       setTimeout(() => chrome.tabs.sendMessage(tab.id, { type: 'START_WORKFLOW', workflow }), 2500);
     } else {
       chrome.tabs.sendMessage(tab.id, { type: 'START_WORKFLOW', workflow });
     }
   } catch (err) {
-    setStatus(`Could not load workflow: ${err.message}`, 'error');
+    setStatus(`Could not load workflow content. Check your internet connection.`, 'error');
   }
 }
 
@@ -109,34 +129,15 @@ chrome.runtime.onMessage.addListener((msg) => {
   }
 });
 
-async function loadIndex() {
-  setStatus('Loading workflows...', 'loading');
+// Render immediately from embedded index — no network needed
+renderList(allWorkflows);
+checkSuggestedWorkflow();
 
-  // Try GitHub first
-  try {
-    const res = await fetch(`${GITHUB_RAW}/workflows/index.json`);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
+// Try to fetch a fresher index from GitHub in the background
+fetch(`${GITHUB_RAW}/workflows/index.json`)
+  .then(r => r.json())
+  .then(data => {
     allWorkflows = data.workflows;
-    setStatus('');
-    renderList(allWorkflows);
-    checkSuggestedWorkflow();
-    return;
-  } catch (_) {
-    // GitHub unreachable — fall back to bundled index
-  }
-
-  // Fallback: bundled index.json shipped with the extension
-  try {
-    const res = await fetch(chrome.runtime.getURL('workflows-index.json'));
-    const data = await res.json();
-    allWorkflows = data.workflows;
-    setStatus('Offline mode — workflow list may be outdated.');
-    renderList(allWorkflows);
-    checkSuggestedWorkflow();
-  } catch (err) {
-    setStatus('Could not load workflows.', 'error');
-  }
-}
-
-loadIndex();
+    renderList(filterWorkflows(searchEl.value.trim()));
+  })
+  .catch(() => {}); // silently ignore if offline
