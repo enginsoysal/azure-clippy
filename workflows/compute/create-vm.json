@@ -1,0 +1,72 @@
+{
+  "id": "compute/create-vm",
+  "title": "Virtual Machine aanmaken",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Kies je Subscription",
+      "explanation": "Een subscription is je factureringscontainer in Azure. Alle kosten voor deze VM worden hier in rekening gebracht. Je kunt meerdere subscriptions hebben — bijv. één voor productie en één voor test/dev."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Kies of maak een Resource Group",
+      "explanation": "Een Resource Group is een logische map voor gerelateerde Azure-resources. Tip: zet alle resources van één project in dezelfde RG — dan kun je ze als geheel beheren en in één keer verwijderen."
+    },
+    {
+      "id": "vm-name",
+      "selector": "[aria-label='Virtual machine name']",
+      "fallbackSelector": "[name='virtualMachineName']",
+      "title": "Geef de VM een naam",
+      "explanation": "De naam van je VM is ook de hostname van het besturingssysteem. Gebruik een consistente naamgeving, bijv. 'prod-web-01' of 'dev-db-01'. Maximaal 15 tekens voor Windows, 64 voor Linux."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Kies een regio",
+      "explanation": "De regio bepaalt waar je VM fysiek draait. Kies een regio dichtbij je gebruikers voor lage latency. West Europe (Amsterdam) of North Europe (Dublin) zijn veelgebruikte keuzes in Europa."
+    },
+    {
+      "id": "image",
+      "selector": "[aria-label='Image']",
+      "fallbackSelector": "[data-telemetryid='ImageDropDown']",
+      "title": "Kies een Image (OS)",
+      "explanation": "Het image bepaalt het besturingssysteem van je VM. Windows Server is geschikt voor .NET-apps; Ubuntu of RHEL voor Linux-workloads. Marketplace-images kunnen extra kosten hebben voor de licentie."
+    },
+    {
+      "id": "size",
+      "selector": "[aria-label='Size']",
+      "fallbackSelector": "button[data-telemetryid='VmSize']",
+      "title": "Kies een VM-grootte",
+      "explanation": "De grootte bepaalt het aantal vCPUs, het geheugen en de prijs. B-series zijn goedkoop voor dev/test. D-series zijn voor general purpose productie. Start klein — je kunt later altijd upscalen."
+    },
+    {
+      "id": "username",
+      "selector": "[aria-label='Username']",
+      "fallbackSelector": "[name='adminUsername']",
+      "title": "Stel de admin-gebruikersnaam in",
+      "explanation": "Dit is de gebruikersnaam voor je eerste beheerdersaccount op de VM. Gebruik geen standaardnamen zoals 'admin' of 'administrator' — dit vermindert het risico op brute-force aanvallen."
+    },
+    {
+      "id": "auth-type",
+      "selector": "[aria-label='Authentication type']",
+      "fallbackSelector": "[data-telemetryid='AuthType']",
+      "title": "Kies het authenticatietype",
+      "explanation": "SSH public key is veiliger dan een wachtwoord voor Linux-VM's. Voor Windows is Remote Desktop Password de standaard. Gebruik bij voorkeur SSH-sleutels en sla het wachtwoord op in Azure Key Vault."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Klik op Review + create",
+      "explanation": "Azure valideert eerst je instellingen. Als alles groen is, klik je op 'Create'. De deployment duurt typisch 2-5 minuten. Je kunt de voortgang volgen via Notifications (bel-icoon rechtsboven)."
+    }
+  ]
+}

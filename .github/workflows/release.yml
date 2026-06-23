@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Package and publish extension
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create extension zip
+        run: |
+          cd extension
+          zip -r ../azure-clippy-${{ github.ref_name }}.zip . \
+            --exclude "*.DS_Store" \
+            --exclude "__MACOSX/*"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: azure-clippy-${{ github.ref_name }}.zip
+          generate_release_notes: true
+          body: |
+            ## Azure Clippy ${{ github.ref_name }}
+
+            ### Installeren
+            1. Download `azure-clippy-${{ github.ref_name }}.zip` hieronder
+            2. Pak uit naar een map
+            3. Open Edge: `edge://extensions` of Chrome: `chrome://extensions`
+            4. Zet **Developer mode** aan
+            5. Klik **Load unpacked** en selecteer de uitgepakte map
+
+            Zie de [README](README.md) voor meer informatie.

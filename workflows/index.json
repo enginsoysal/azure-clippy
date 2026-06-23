@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-06-23",
+  "workflows": [
+    {
+      "id": "compute/create-vm",
+      "title": "Virtual Machine aanmaken",
+      "category": "Compute",
+      "tags": ["vm", "virtual machine", "iaas", "server", "compute"]
+    },
+    {
+      "id": "compute/create-vmss",
+      "title": "VM Scale Set aanmaken",
+      "category": "Compute",
+      "tags": ["vmss", "scale set", "autoscale", "compute"]
+    },
+    {
+      "id": "networking/create-vnet",
+      "title": "Virtual Network aanmaken",
+      "category": "Networking",
+      "tags": ["vnet", "virtual network", "netwerk", "networking"]
+    },
+    {
+      "id": "networking/create-nsg",
+      "title": "Network Security Group aanmaken",
+      "category": "Networking",
+      "tags": ["nsg", "firewall", "security group", "network", "regels"]
+    },
+    {
+      "id": "networking/create-load-balancer",
+      "title": "Load Balancer aanmaken",
+      "category": "Networking",
+      "tags": ["load balancer", "lb", "verkeer", "taakverdeling"]
+    },
+    {
+      "id": "storage/create-storage-account",
+      "title": "Storage Account aanmaken",
+      "category": "Storage",
+      "tags": ["storage", "opslag", "account", "blob", "files", "queues", "tables"]
+    },
+    {
+      "id": "storage/create-blob-container",
+      "title": "Blob Container aanmaken",
+      "category": "Storage",
+      "tags": ["blob", "container", "opslag", "bestanden", "object storage"]
+    },
+    {
+      "id": "app-services/create-app-service",
+      "title": "App Service aanmaken",
+      "category": "App Services",
+      "tags": ["app service", "web app", "webapp", "paas", "website", "api"]
+    },
+    {
+      "id": "app-services/create-app-service-plan",
+      "title": "App Service Plan aanmaken",
+      "category": "App Services",
+      "tags": ["app service plan", "hosting plan", "paas", "compute plan"]
+    },
+    {
+      "id": "containers/create-aks",
+      "title": "AKS Cluster aanmaken",
+      "category": "Containers",
+      "tags": ["aks", "kubernetes", "k8s", "cluster", "containers"]
+    },
+    {
+      "id": "containers/create-container-instance",
+      "title": "Container Instance aanmaken",
+      "category": "Containers",
+      "tags": ["aci", "container instance", "docker", "container"]
+    },
+    {
+      "id": "containers/create-container-registry",
+      "title": "Container Registry aanmaken",
+      "category": "Containers",
+      "tags": ["acr", "container registry", "docker", "images", "registry"]
+    },
+    {
+      "id": "identity/create-app-registration",
+      "title": "App Registration aanmaken",
+      "category": "Identity",
+      "tags": ["app registration", "aad", "entra", "oauth", "service principal", "client id"]
+    },
+    {
+      "id": "identity/assign-rbac",
+      "title": "RBAC-rol toewijzen",
+      "category": "Identity",
+      "tags": ["rbac", "rol", "role assignment", "iam", "toegang", "permissies"]
+    },
+    {
+      "id": "databases/create-sql-database",
+      "title": "SQL Database aanmaken",
+      "category": "Databases",
+      "tags": ["sql", "database", "azure sql", "relational", "db"]
+    },
+    {
+      "id": "databases/create-cosmos-db",
+      "title": "Cosmos DB aanmaken",
+      "category": "Databases",
+      "tags": ["cosmos", "cosmosdb", "nosql", "mongodb", "database"]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "app-services/create-app-service",
+  "title": "App Service aanmaken",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.WebSite",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Kies je Subscription",
+      "explanation": "App Service-kosten worden bepaald door het App Service Plan (de onderliggende compute). Je kunt meerdere App Services op één plan draaien om kosten te besparen."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Kies of maak een Resource Group",
+      "explanation": "Zet de App Service in de Resource Group van je project. Als je ook een database, storage of VNet gebruikt, zet die dan in dezelfde RG voor overzicht en gezamenlijk beheer."
+    },
+    {
+      "id": "app-name",
+      "selector": "[aria-label='Name']",
+      "fallbackSelector": "[name='siteName']",
+      "title": "Geef de App Service een naam",
+      "explanation": "De naam bepaalt de standaard URL: jouwapp.azurewebsites.net. De naam moet uniek zijn in Azure. Koppel later een eigen domeinnaam via 'Custom domains' als je die-stanaard-URL niet wilt gebruiken."
+    },
+    {
+      "id": "publish-type",
+      "selector": "[aria-label='Publish']",
+      "fallbackSelector": "[data-telemetryid='PublishType']",
+      "title": "Kies het publicatietype",
+      "explanation": "Code: deploy vanuit Git, ZIP of CI/CD pipeline. Container: deploy een Docker-image vanuit een container registry. Static Web App: alleen statische bestanden (HTML/CSS/JS) via een aparte dienst."
+    },
+    {
+      "id": "runtime",
+      "selector": "[aria-label='Runtime stack']",
+      "fallbackSelector": "[data-telemetryid='RuntimeStack']",
+      "title": "Kies de runtime stack",
+      "explanation": "Kies de taal en versie van je applicatie (.NET, Node.js, Python, Java, PHP, Ruby). Kies altijd de meest recente LTS-versie tenzij je een specifieke versie nodig hebt. Oudere versies ontvangen geen beveiligingsupdates."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Kies een regio",
+      "explanation": "Kies een regio dichtbij je gebruikers voor lage latency. Als je een database in West Europe hebt, zet dan de App Service ook in West Europe om netwerk-latency tussen app en database te minimaliseren."
+    },
+    {
+      "id": "app-service-plan",
+      "selector": "[aria-label='App Service Plan']",
+      "fallbackSelector": "[data-telemetryid='AppServicePlan']",
+      "title": "Kies of maak een App Service Plan",
+      "explanation": "Het App Service Plan bepaalt de compute-resources (CPU, RAM) en de prijs. Free/Shared: voor dev/test, beperkte features. Basic/Standard: voor productie met autoscaling. Premium: voor high performance en isolatie. Je kunt meerdere apps op één plan zetten."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Klik op Review + create",
+      "explanation": "Na aanmaken kun je direct deployen via GitHub Actions, Azure DevOps, of lokale Git. Ga naar 'Deployment Center' voor de eenvoudigste CI/CD-setup. De app is direct bereikbaar op jouwapp.azurewebsites.net."
+    }
+  ]
+}

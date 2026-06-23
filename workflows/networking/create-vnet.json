@@ -1,0 +1,58 @@
+{
+  "id": "networking/create-vnet",
+  "title": "Virtual Network aanmaken",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualNetwork",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Kies je Subscription",
+      "explanation": "Een subscription is je factureringscontainer. Een VNet zelf kost niets — je betaalt alleen voor dataverkeer tussen regio's en voor bepaalde gateway-diensten."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Kies of maak een Resource Group",
+      "explanation": "Zet je VNet in dezelfde Resource Group als de resources die erin draaien. Een VNet kan meerdere resources hosten, maar overspant altijd maar één regio."
+    },
+    {
+      "id": "vnet-name",
+      "selector": "[aria-label='Name']",
+      "fallbackSelector": "[name='virtualNetworkName']",
+      "title": "Geef het VNet een naam",
+      "explanation": "Gebruik een duidelijke naam die de functie aangeeft, bijv. 'vnet-prod-westeurope' of 'vnet-dev'. Een goede naamgeving bespaart later veel verwarring bij meerdere VNets."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Kies een regio",
+      "explanation": "Een VNet bestaat altijd binnen één Azure-regio. Resources in hetzelfde VNet communiceren gratis met elkaar. Wil je meerdere regio's verbinden? Gebruik dan VNet Peering of een VPN Gateway."
+    },
+    {
+      "id": "address-space",
+      "selector": "[aria-label='IPv4 address space']",
+      "fallbackSelector": "[name='addressSpace']",
+      "title": "Stel de adresruimte in",
+      "explanation": "De adresruimte is het IP-bereik voor je hele VNet, in CIDR-notatie. Bijv. 10.0.0.0/16 geeft je 65.536 IP-adressen. Kies een privé-bereik (10.x, 172.16-31.x, 192.168.x) en plan ruimte voor toekomstige subnetten."
+    },
+    {
+      "id": "subnet-name",
+      "selector": "[aria-label='Subnet name']",
+      "fallbackSelector": "[name='subnetName']",
+      "title": "Stel het eerste subnet in",
+      "explanation": "Een subnet is een segment binnen je VNet. Je koppelt resources (VM's, App Services) aan een subnet. Gebruik aparte subnetten voor different lagen, bijv. 'subnet-web' en 'subnet-db' voor netwerk-isolatie."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Klik op Review + create",
+      "explanation": "Na validatie wordt het VNet direct aangemaakt — dit duurt meestal minder dan 30 seconden. Daarna kun je direct resources in het VNet plaatsen of extra subnetten toevoegen."
+    }
+  ]
+}

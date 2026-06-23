@@ -1,0 +1,37 @@
+{
+  "id": "identity/create-app-registration",
+  "title": "App Registration aanmaken",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/CreateApplicationBlade",
+  "steps": [
+    {
+      "id": "app-name",
+      "selector": "[aria-label='Name']",
+      "fallbackSelector": "[placeholder='Enter a display name']",
+      "title": "Geef de applicatie een naam",
+      "explanation": "Dit is de naam die gebruikers zien op de consent-pagina als ze inloggen. Kies een duidelijke naam die de applicatie beschrijft, bijv. 'MyApp Backend API' of 'Azure Clippy Extension'."
+    },
+    {
+      "id": "supported-account-types",
+      "selector": "[aria-label='Supported account types']",
+      "fallbackSelector": "#supported-account-types",
+      "title": "Kies wie kan inloggen",
+      "explanation": "Single tenant: alleen gebruikers uit jouw eigen Entra ID tenant. Multitenant: gebruikers van andere organisaties ook. Persoonlijke Microsoft-accounts: voor consumer-apps (Xbox, Outlook.com). Kies de meest restrictieve optie die past bij je use case."
+    },
+    {
+      "id": "redirect-uri",
+      "selector": "[aria-label='Redirect URI']",
+      "fallbackSelector": "[placeholder*='redirect']",
+      "title": "Stel de Redirect URI in (optioneel)",
+      "explanation": "De Redirect URI is de URL waarnaar Azure terugredirect na succesvolle authenticatie. Voor web-apps bijv. 'https://mijnapp.nl/auth/callback'. Voor API's zonder interactieve login kun je dit leeg laten."
+    },
+    {
+      "id": "register",
+      "selector": "button[aria-label='Register']",
+      "fallbackSelector": "button[data-telemetryid='RegisterButton']",
+      "title": "Klik op Register",
+      "explanation": "Na registratie krijg je een Application (client) ID en een Tenant ID — deze heb je nodig in je applicatiecode. Maak daarna onder 'Certificates & secrets' een client secret aan als je een server-to-server authenticatie nodig hebt."
+    }
+  ]
+}

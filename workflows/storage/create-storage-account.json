@@ -1,0 +1,58 @@
+{
+  "id": "storage/create-storage-account",
+  "title": "Storage Account aanmaken",
+  "version": "1.0.0",
+  "lastVerified": "2026-06-23",
+  "startUrl": "https://portal.azure.com/#create/Microsoft.StorageAccount-ARM",
+  "steps": [
+    {
+      "id": "subscription",
+      "selector": "[aria-label='Subscription']",
+      "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
+      "title": "Kies je Subscription",
+      "explanation": "Storage Account-kosten zijn afhankelijk van de hoeveelheid opgeslagen data, het gebruikte redundantieniveau (LRS/GRS) en het aantal transacties. Kies de juiste subscription voor kostenverantwoording."
+    },
+    {
+      "id": "resource-group",
+      "selector": "[aria-label='Resource group']",
+      "fallbackSelector": "[name='resourceGroup']",
+      "title": "Kies of maak een Resource Group",
+      "explanation": "Zet het Storage Account in de Resource Group van de applicatie die het gebruikt. Zo blijven de kosten en het beheer overzichtelijk per project."
+    },
+    {
+      "id": "storage-account-name",
+      "selector": "[aria-label='Storage account name']",
+      "fallbackSelector": "[name='storageAccountName']",
+      "title": "Geef het Storage Account een naam",
+      "explanation": "De naam moet uniek zijn in Azure wereldwijd (3-24 tekens, alleen kleine letters en cijfers). Deze naam wordt onderdeel van de URL: accountnaam.blob.core.windows.net. Kies zorgvuldig — de naam is niet te wijzigen na aanmaken."
+    },
+    {
+      "id": "region",
+      "selector": "[aria-label='Region']",
+      "fallbackSelector": "[data-telemetryid='RegionDropDown']",
+      "title": "Kies een regio",
+      "explanation": "Kies dezelfde regio als de resources die het storage account gebruiken om dataverkeer-kosten en latency te minimaliseren. Dataverkeer binnen dezelfde regio is gratis; cross-regio verkeer kost geld."
+    },
+    {
+      "id": "performance",
+      "selector": "[aria-label='Performance']",
+      "fallbackSelector": "[data-telemetryid='Performance']",
+      "title": "Kies het Performance-tier",
+      "explanation": "Standard: HDD-gebaseerd, goedkoop, geschikt voor backups en archivering. Premium: SSD-gebaseerd, lage latency, voor databases en veeleisende applicaties. Premium is aanzienlijk duurder."
+    },
+    {
+      "id": "redundancy",
+      "selector": "[aria-label='Redundancy']",
+      "fallbackSelector": "[data-telemetryid='Redundancy']",
+      "title": "Kies het Redundantieniveau",
+      "explanation": "LRS (Locally Redundant): 3 kopieën in 1 datacenter — goedkoopst. ZRS: verspreid over 3 availability zones in 1 regio. GRS: 6 kopieën in 2 regio's — duurste, maar hoogste beschikbaarheid. Kies op basis van je SLA-vereisten."
+    },
+    {
+      "id": "review-create",
+      "selector": "button[aria-label='Review + create']",
+      "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
+      "title": "Klik op Review + create",
+      "explanation": "Na aanmaken vind je de access keys en connection strings onder 'Security + networking → Access keys'. Gebruik managed identities voor applicaties i.p.v. access keys waar mogelijk — dat is veiliger."
+    }
+  ]
+}

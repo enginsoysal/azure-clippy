@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  background: #0a0a0a;
+  color: #e0e0e0;
+  min-height: 100vh;
+}
+
+header {
+  background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+  padding: 14px 16px 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.logo-icon { font-size: 20px; }
+
+.subtitle {
+  margin-top: 2px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+}
+
+.search-box {
+  padding: 10px 12px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 7px 10px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #e0e0e0;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.search-box input:focus {
+  border-color: #0078d4;
+}
+
+.search-box input::placeholder {
+  color: #555;
+}
+
+.section {
+  padding: 10px 12px;
+}
+
+.section-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.category-group {
+  margin-bottom: 10px;
+}
+
+.category-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #0078d4;
+  margin-bottom: 3px;
+  padding-left: 2px;
+}
+
+.workflow-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  margin-bottom: 3px;
+  background: #161616;
+  border: 1px solid #222;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.workflow-card:hover {
+  background: #1e2d3f;
+  border-color: #0078d4;
+}
+
+.workflow-card.suggested {
+  border-color: #0078d4;
+  background: #0f1e2f;
+}
+
+.workflow-title {
+  font-size: 12px;
+  color: #d0d0d0;
+}
+
+.workflow-start {
+  font-size: 11px;
+  color: #0078d4;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.workflow-card:hover .workflow-start {
+  color: #4da3f7;
+}
+
+.status {
+  padding: 8px 12px;
+  font-size: 11px;
+  color: #888;
+}
+
+.status.error { color: #e05555; }
+.status.loading { color: #0078d4; }

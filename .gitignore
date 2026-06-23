@@ -1,0 +1,6 @@
+node_modules/
+health-check/report/
+health-check/auth.json
+health-check/test-results/
+*.zip
+.DS_Store
