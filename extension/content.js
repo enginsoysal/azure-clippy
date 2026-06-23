@@ -32,8 +32,18 @@ async function waitForElement(selectors, timeoutMs = 10000) {
   while (Date.now() < deadline) {
     for (const sel of selectors) {
       try {
-        const el = document.querySelector(sel);
-        if (el) return el;
+        const candidates = document.querySelectorAll(sel);
+        for (const el of candidates) {
+          const tag  = el.tagName.toLowerCase();
+          const rect = el.getBoundingClientRect();
+          // Skip invisible elements
+          if (rect.width === 0 || rect.height === 0) continue;
+          // Skip tiny icon/info buttons (smaller than 24x24)
+          if (rect.width < 24 && rect.height < 24) continue;
+          // Skip pure icon tags
+          if (tag === 'i' || tag === 'svg' || tag === 'img') continue;
+          return el;
+        }
       } catch (_) {}
     }
     await new Promise(r => setTimeout(r, 300));
