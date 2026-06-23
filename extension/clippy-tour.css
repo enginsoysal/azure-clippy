@@ -1,0 +1,149 @@
+/* Azure Clippy — Tour Overlay */
+
+#clippy-tour-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999990;
+  pointer-events: none;
+}
+
+/* Highlight ring around target element */
+.clippy-highlight-ring {
+  position: fixed;
+  border: 2px solid #0078d4;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.35), 0 0 0 3px rgba(0, 120, 212, 0.4);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 999991;
+}
+
+/* Tour balloon */
+#clippy-tour-balloon {
+  position: fixed;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(0, 120, 212, 0.2);
+  padding: 0;
+  max-width: 320px;
+  min-width: 260px;
+  z-index: 999999;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  pointer-events: all;
+  animation: clippy-tour-in 0.2s ease;
+}
+
+@keyframes clippy-tour-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Arrow / caret */
+#clippy-tour-balloon::before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #0078d4;
+  transform: rotate(45deg);
+}
+
+#clippy-tour-balloon.arrow-top::before    { top: -6px;    left: 20px; }
+#clippy-tour-balloon.arrow-bottom::before { bottom: -6px; left: 20px; }
+#clippy-tour-balloon.arrow-left::before   { left: -6px;   top: 20px; }
+#clippy-tour-balloon.arrow-right::before  { right: -6px;  top: 20px; }
+
+/* Header bar */
+#clippy-tour-header {
+  background: #0078d4;
+  color: #fff;
+  padding: 10px 14px 8px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#clippy-tour-step-badge {
+  background: rgba(255,255,255,0.25);
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#clippy-tour-title {
+  font-size: 13px;
+  font-weight: 600;
+  flex: 1;
+}
+
+/* Body */
+#clippy-tour-body {
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #242424;
+}
+
+/* Progress bar */
+#clippy-tour-progress {
+  height: 3px;
+  background: #e8e8e8;
+  margin: 0 14px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+#clippy-tour-progress-fill {
+  height: 100%;
+  background: #0078d4;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Footer */
+#clippy-tour-footer {
+  padding: 10px 14px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#clippy-tour-footer-spacer { flex: 1; }
+
+.clippy-tour-btn {
+  padding: 5px 14px;
+  border-radius: 4px;
+  border: 1px solid #0078d4;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.clippy-tour-btn.primary {
+  background: #0078d4;
+  color: #fff;
+}
+
+.clippy-tour-btn.primary:hover { background: #006cbd; }
+
+.clippy-tour-btn.secondary {
+  background: transparent;
+  color: #0078d4;
+}
+
+.clippy-tour-btn.secondary:hover { background: #f0f6ff; }
+
+.clippy-tour-btn.ghost {
+  border-color: transparent;
+  color: #616161;
+  background: transparent;
+  font-weight: 400;
+}
+
+.clippy-tour-btn.ghost:hover { background: #f5f5f5; }
