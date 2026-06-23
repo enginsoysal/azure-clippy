@@ -39,7 +39,6 @@ async function login(page: Page) {
   await page.fill('[name="passwd"]', pass);
   await page.click('[type="submit"]');
 
-  // Handle "Stay signed in?" prompt
   const staySignedIn = page.locator('[id="idBtn_Back"]');
   if (await staySignedIn.isVisible({ timeout: 5000 }).catch(() => false)) {
     await staySignedIn.click();
@@ -51,8 +50,7 @@ async function login(page: Page) {
 async function elementVisible(page: Page, selectors: string[]): Promise<boolean> {
   for (const sel of selectors.filter(Boolean)) {
     try {
-      const el = page.locator(sel).first();
-      if (await el.isVisible({ timeout: 8_000 })) return true;
+      if (await page.locator(sel).first().isVisible({ timeout: 8_000 })) return true;
     } catch {
       // try next selector
     }
@@ -75,15 +73,13 @@ for (const entry of workflowEntries) {
     const wfPath = path.join(__dirname, `../workflows/${entry.id}.json`);
 
     if (!fs.existsSync(wfPath)) {
-      test.skip(true, `Workflow bestand niet gevonden: ${wfPath}`);
+      test.skip(true, `Workflow file not found: ${wfPath}`);
       return;
     }
 
     const workflow: Workflow = JSON.parse(fs.readFileSync(wfPath, 'utf8'));
 
     await page.goto(workflow.startUrl, { waitUntil: 'domcontentloaded', timeout: 20_000 });
-
-    // Azure Portal laadt traag — wacht op iets herkenbaars
     await page.waitForTimeout(3000);
 
     const failures: string[] = [];
@@ -91,15 +87,14 @@ for (const entry of workflowEntries) {
     for (const step of workflow.steps) {
       const selectors = [step.selector, step.fallbackSelector].filter(Boolean) as string[];
       const found = await elementVisible(page, selectors);
-
       if (!found) {
-        failures.push(`Stap "${step.title}" (${step.id}): geen van de selectors gevonden — ${selectors.join(', ')}`);
+        failures.push(`Step "${step.title}" (${step.id}): no selector matched — ${selectors.join(', ')}`);
       }
     }
 
     if (failures.length > 0) {
       throw new Error(
-        `Workflow "${workflow.title}" heeft ${failures.length} gebroken stap(pen):\n${failures.join('\n')}`
+        `Workflow "${workflow.title}" has ${failures.length} broken step(s):\n${failures.join('\n')}`
       );
     }
   });

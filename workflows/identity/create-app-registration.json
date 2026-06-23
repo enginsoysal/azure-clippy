@@ -1,6 +1,6 @@
 {
   "id": "identity/create-app-registration",
-  "title": "App Registration aanmaken",
+  "title": "Create an App Registration",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/CreateApplicationBlade",
@@ -9,29 +9,29 @@
       "id": "app-name",
       "selector": "[aria-label='Name']",
       "fallbackSelector": "[placeholder='Enter a display name']",
-      "title": "Geef de applicatie een naam",
-      "explanation": "Dit is de naam die gebruikers zien op de consent-pagina als ze inloggen. Kies een duidelijke naam die de applicatie beschrijft, bijv. 'MyApp Backend API' of 'Azure Clippy Extension'."
+      "title": "Give the application a name",
+      "explanation": "This is the name users see on the consent screen when signing in. Choose a clear, descriptive name such as 'MyApp Backend API' or 'Azure Clippy Extension'."
     },
     {
       "id": "supported-account-types",
       "selector": "[aria-label='Supported account types']",
       "fallbackSelector": "#supported-account-types",
-      "title": "Kies wie kan inloggen",
-      "explanation": "Single tenant: alleen gebruikers uit jouw eigen Entra ID tenant. Multitenant: gebruikers van andere organisaties ook. Persoonlijke Microsoft-accounts: voor consumer-apps (Xbox, Outlook.com). Kies de meest restrictieve optie die past bij je use case."
+      "title": "Choose who can sign in",
+      "explanation": "Single tenant: only users from your own Entra ID tenant. Multitenant: users from other organizations too. Personal Microsoft accounts: for consumer apps (Xbox, Outlook.com). Choose the most restrictive option that fits your use case."
     },
     {
       "id": "redirect-uri",
       "selector": "[aria-label='Redirect URI']",
       "fallbackSelector": "[placeholder*='redirect']",
-      "title": "Stel de Redirect URI in (optioneel)",
-      "explanation": "De Redirect URI is de URL waarnaar Azure terugredirect na succesvolle authenticatie. Voor web-apps bijv. 'https://mijnapp.nl/auth/callback'. Voor API's zonder interactieve login kun je dit leeg laten."
+      "title": "Set the Redirect URI (optional)",
+      "explanation": "The Redirect URI is the URL Azure redirects to after successful authentication. For web apps, e.g. 'https://myapp.com/auth/callback'. For APIs without interactive login you can leave this empty."
     },
     {
       "id": "register",
       "selector": "button[aria-label='Register']",
       "fallbackSelector": "button[data-telemetryid='RegisterButton']",
-      "title": "Klik op Register",
-      "explanation": "Na registratie krijg je een Application (client) ID en een Tenant ID — deze heb je nodig in je applicatiecode. Maak daarna onder 'Certificates & secrets' een client secret aan als je een server-to-server authenticatie nodig hebt."
+      "title": "Click Register",
+      "explanation": "After registration you get an Application (client) ID and a Tenant ID — you need these in your application code. Next, go to 'Certificates & secrets' to create a client secret for server-to-server authentication."
     }
   ]
 }

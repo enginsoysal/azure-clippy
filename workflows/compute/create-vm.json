@@ -1,6 +1,6 @@
 {
   "id": "compute/create-vm",
-  "title": "Virtual Machine aanmaken",
+  "title": "Create a Virtual Machine",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#create/Microsoft.VirtualMachine-ARM",
@@ -9,64 +9,64 @@
       "id": "subscription",
       "selector": "[aria-label='Subscription']",
       "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
-      "title": "Kies je Subscription",
-      "explanation": "Een subscription is je factureringscontainer in Azure. Alle kosten voor deze VM worden hier in rekening gebracht. Je kunt meerdere subscriptions hebben — bijv. één voor productie en één voor test/dev."
+      "title": "Choose your Subscription",
+      "explanation": "A subscription is your billing container in Azure. All costs for this VM will be charged here. You can have multiple subscriptions — for example, one for production and one for dev/test."
     },
     {
       "id": "resource-group",
       "selector": "[aria-label='Resource group']",
       "fallbackSelector": "[name='resourceGroup']",
-      "title": "Kies of maak een Resource Group",
-      "explanation": "Een Resource Group is een logische map voor gerelateerde Azure-resources. Tip: zet alle resources van één project in dezelfde RG — dan kun je ze als geheel beheren en in één keer verwijderen."
+      "title": "Select or create a Resource Group",
+      "explanation": "A Resource Group is a logical folder for related Azure resources. Tip: keep all resources of one project in the same Resource Group — that way you can manage and delete them together."
     },
     {
       "id": "vm-name",
       "selector": "[aria-label='Virtual machine name']",
       "fallbackSelector": "[name='virtualMachineName']",
-      "title": "Geef de VM een naam",
-      "explanation": "De naam van je VM is ook de hostname van het besturingssysteem. Gebruik een consistente naamgeving, bijv. 'prod-web-01' of 'dev-db-01'. Maximaal 15 tekens voor Windows, 64 voor Linux."
+      "title": "Give the VM a name",
+      "explanation": "The VM name also becomes the OS hostname. Use a consistent naming convention, e.g. 'prod-web-01' or 'dev-db-01'. Maximum 15 characters for Windows, 64 for Linux."
     },
     {
       "id": "region",
       "selector": "[aria-label='Region']",
       "fallbackSelector": "[data-telemetryid='RegionDropDown']",
-      "title": "Kies een regio",
-      "explanation": "De regio bepaalt waar je VM fysiek draait. Kies een regio dichtbij je gebruikers voor lage latency. West Europe (Amsterdam) of North Europe (Dublin) zijn veelgebruikte keuzes in Europa."
+      "title": "Choose a region",
+      "explanation": "The region determines where your VM physically runs. Choose a region close to your users for low latency. West Europe (Amsterdam) and North Europe (Dublin) are popular choices in Europe."
     },
     {
       "id": "image",
       "selector": "[aria-label='Image']",
       "fallbackSelector": "[data-telemetryid='ImageDropDown']",
-      "title": "Kies een Image (OS)",
-      "explanation": "Het image bepaalt het besturingssysteem van je VM. Windows Server is geschikt voor .NET-apps; Ubuntu of RHEL voor Linux-workloads. Marketplace-images kunnen extra kosten hebben voor de licentie."
+      "title": "Choose an Image (OS)",
+      "explanation": "The image defines the operating system of your VM. Windows Server is suitable for .NET workloads; Ubuntu or RHEL for Linux. Marketplace images may include additional licensing costs."
     },
     {
       "id": "size",
       "selector": "[aria-label='Size']",
       "fallbackSelector": "button[data-telemetryid='VmSize']",
-      "title": "Kies een VM-grootte",
-      "explanation": "De grootte bepaalt het aantal vCPUs, het geheugen en de prijs. B-series zijn goedkoop voor dev/test. D-series zijn voor general purpose productie. Start klein — je kunt later altijd upscalen."
+      "title": "Choose a VM size",
+      "explanation": "The size determines the number of vCPUs, RAM, and the price. B-series are cheap for dev/test. D-series are general purpose for production. Start small — you can always scale up later."
     },
     {
       "id": "username",
       "selector": "[aria-label='Username']",
       "fallbackSelector": "[name='adminUsername']",
-      "title": "Stel de admin-gebruikersnaam in",
-      "explanation": "Dit is de gebruikersnaam voor je eerste beheerdersaccount op de VM. Gebruik geen standaardnamen zoals 'admin' of 'administrator' — dit vermindert het risico op brute-force aanvallen."
+      "title": "Set the admin username",
+      "explanation": "This is the username for the first administrator account on the VM. Avoid common names like 'admin' or 'administrator' — this reduces the risk of brute-force attacks."
     },
     {
       "id": "auth-type",
       "selector": "[aria-label='Authentication type']",
       "fallbackSelector": "[data-telemetryid='AuthType']",
-      "title": "Kies het authenticatietype",
-      "explanation": "SSH public key is veiliger dan een wachtwoord voor Linux-VM's. Voor Windows is Remote Desktop Password de standaard. Gebruik bij voorkeur SSH-sleutels en sla het wachtwoord op in Azure Key Vault."
+      "title": "Choose the authentication type",
+      "explanation": "SSH public key is more secure than a password for Linux VMs. For Windows, Remote Desktop Password is the default. Prefer SSH keys and store passwords in Azure Key Vault."
     },
     {
       "id": "review-create",
       "selector": "button[aria-label='Review + create']",
       "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
-      "title": "Klik op Review + create",
-      "explanation": "Azure valideert eerst je instellingen. Als alles groen is, klik je op 'Create'. De deployment duurt typisch 2-5 minuten. Je kunt de voortgang volgen via Notifications (bel-icoon rechtsboven)."
+      "title": "Click Review + create",
+      "explanation": "Azure first validates your settings. Once everything is green, click 'Create'. Deployment typically takes 2-5 minutes. Monitor progress via the Notifications bell in the top right corner."
     }
   ]
 }

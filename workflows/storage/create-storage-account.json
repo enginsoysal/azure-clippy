@@ -1,6 +1,6 @@
 {
   "id": "storage/create-storage-account",
-  "title": "Storage Account aanmaken",
+  "title": "Create a Storage Account",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#create/Microsoft.StorageAccount-ARM",
@@ -9,50 +9,50 @@
       "id": "subscription",
       "selector": "[aria-label='Subscription']",
       "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
-      "title": "Kies je Subscription",
-      "explanation": "Storage Account-kosten zijn afhankelijk van de hoeveelheid opgeslagen data, het gebruikte redundantieniveau (LRS/GRS) en het aantal transacties. Kies de juiste subscription voor kostenverantwoording."
+      "title": "Choose your Subscription",
+      "explanation": "Storage Account costs depend on the amount of data stored, the redundancy level (LRS/GRS), and the number of transactions. Choose the right subscription for cost accountability."
     },
     {
       "id": "resource-group",
       "selector": "[aria-label='Resource group']",
       "fallbackSelector": "[name='resourceGroup']",
-      "title": "Kies of maak een Resource Group",
-      "explanation": "Zet het Storage Account in de Resource Group van de applicatie die het gebruikt. Zo blijven de kosten en het beheer overzichtelijk per project."
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the Storage Account in the Resource Group of the application that uses it. This keeps costs and management clear per project."
     },
     {
       "id": "storage-account-name",
       "selector": "[aria-label='Storage account name']",
       "fallbackSelector": "[name='storageAccountName']",
-      "title": "Geef het Storage Account een naam",
-      "explanation": "De naam moet uniek zijn in Azure wereldwijd (3-24 tekens, alleen kleine letters en cijfers). Deze naam wordt onderdeel van de URL: accountnaam.blob.core.windows.net. Kies zorgvuldig — de naam is niet te wijzigen na aanmaken."
+      "title": "Give the Storage Account a name",
+      "explanation": "The name must be globally unique in Azure (3-24 characters, lowercase letters and digits only). This name becomes part of the URL: accountname.blob.core.windows.net. Choose carefully — the name cannot be changed after creation."
     },
     {
       "id": "region",
       "selector": "[aria-label='Region']",
       "fallbackSelector": "[data-telemetryid='RegionDropDown']",
-      "title": "Kies een regio",
-      "explanation": "Kies dezelfde regio als de resources die het storage account gebruiken om dataverkeer-kosten en latency te minimaliseren. Dataverkeer binnen dezelfde regio is gratis; cross-regio verkeer kost geld."
+      "title": "Choose a region",
+      "explanation": "Choose the same region as the resources that will use this storage account to minimize latency and avoid egress costs. Data transfer within the same region is free; cross-region transfer is billed."
     },
     {
       "id": "performance",
       "selector": "[aria-label='Performance']",
       "fallbackSelector": "[data-telemetryid='Performance']",
-      "title": "Kies het Performance-tier",
-      "explanation": "Standard: HDD-gebaseerd, goedkoop, geschikt voor backups en archivering. Premium: SSD-gebaseerd, lage latency, voor databases en veeleisende applicaties. Premium is aanzienlijk duurder."
+      "title": "Choose the Performance tier",
+      "explanation": "Standard: HDD-based, cheap, suitable for backups and archiving. Premium: SSD-based, low latency, for databases and demanding applications. Premium is significantly more expensive."
     },
     {
       "id": "redundancy",
       "selector": "[aria-label='Redundancy']",
       "fallbackSelector": "[data-telemetryid='Redundancy']",
-      "title": "Kies het Redundantieniveau",
-      "explanation": "LRS (Locally Redundant): 3 kopieën in 1 datacenter — goedkoopst. ZRS: verspreid over 3 availability zones in 1 regio. GRS: 6 kopieën in 2 regio's — duurste, maar hoogste beschikbaarheid. Kies op basis van je SLA-vereisten."
+      "title": "Choose the Redundancy level",
+      "explanation": "LRS (Locally Redundant): 3 copies in 1 datacenter — cheapest. ZRS: spread across 3 availability zones in 1 region. GRS: 6 copies in 2 regions — most expensive but highest availability. Choose based on your SLA requirements."
     },
     {
       "id": "review-create",
       "selector": "button[aria-label='Review + create']",
       "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
-      "title": "Klik op Review + create",
-      "explanation": "Na aanmaken vind je de access keys en connection strings onder 'Security + networking → Access keys'. Gebruik managed identities voor applicaties i.p.v. access keys waar mogelijk — dat is veiliger."
+      "title": "Click Review + create",
+      "explanation": "After creation, find access keys and connection strings under 'Security + networking → Access keys'. Where possible, use Managed Identities instead of access keys for applications — it's more secure and requires no secret rotation."
     }
   ]
 }

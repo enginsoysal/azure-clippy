@@ -1,6 +1,6 @@
 {
   "id": "app-services/create-app-service",
-  "title": "App Service aanmaken",
+  "title": "Create an App Service",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#create/Microsoft.WebSite",
@@ -9,57 +9,57 @@
       "id": "subscription",
       "selector": "[aria-label='Subscription']",
       "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
-      "title": "Kies je Subscription",
-      "explanation": "App Service-kosten worden bepaald door het App Service Plan (de onderliggende compute). Je kunt meerdere App Services op één plan draaien om kosten te besparen."
+      "title": "Choose your Subscription",
+      "explanation": "App Service costs are determined by the underlying App Service Plan (compute). You can run multiple App Services on one plan to share costs."
     },
     {
       "id": "resource-group",
       "selector": "[aria-label='Resource group']",
       "fallbackSelector": "[name='resourceGroup']",
-      "title": "Kies of maak een Resource Group",
-      "explanation": "Zet de App Service in de Resource Group van je project. Als je ook een database, storage of VNet gebruikt, zet die dan in dezelfde RG voor overzicht en gezamenlijk beheer."
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the App Service in your project's Resource Group. If you also use a database, storage, or VNet, keep them all in the same Resource Group for clarity and joint management."
     },
     {
       "id": "app-name",
       "selector": "[aria-label='Name']",
       "fallbackSelector": "[name='siteName']",
-      "title": "Geef de App Service een naam",
-      "explanation": "De naam bepaalt de standaard URL: jouwapp.azurewebsites.net. De naam moet uniek zijn in Azure. Koppel later een eigen domeinnaam via 'Custom domains' als je die-stanaard-URL niet wilt gebruiken."
+      "title": "Give the App Service a name",
+      "explanation": "The name determines the default URL: yourapp.azurewebsites.net. The name must be globally unique in Azure. You can attach a custom domain later via 'Custom domains' if you don't want to use the default URL."
     },
     {
       "id": "publish-type",
       "selector": "[aria-label='Publish']",
       "fallbackSelector": "[data-telemetryid='PublishType']",
-      "title": "Kies het publicatietype",
-      "explanation": "Code: deploy vanuit Git, ZIP of CI/CD pipeline. Container: deploy een Docker-image vanuit een container registry. Static Web App: alleen statische bestanden (HTML/CSS/JS) via een aparte dienst."
+      "title": "Choose the publish type",
+      "explanation": "Code: deploy from Git, ZIP, or a CI/CD pipeline. Container: deploy a Docker image from a container registry. Choose Code for most web apps and APIs."
     },
     {
       "id": "runtime",
       "selector": "[aria-label='Runtime stack']",
       "fallbackSelector": "[data-telemetryid='RuntimeStack']",
-      "title": "Kies de runtime stack",
-      "explanation": "Kies de taal en versie van je applicatie (.NET, Node.js, Python, Java, PHP, Ruby). Kies altijd de meest recente LTS-versie tenzij je een specifieke versie nodig hebt. Oudere versies ontvangen geen beveiligingsupdates."
+      "title": "Choose the runtime stack",
+      "explanation": "Choose the language and version of your application (.NET, Node.js, Python, Java, PHP). Always pick the latest LTS version unless you have a specific requirement. Older versions no longer receive security updates."
     },
     {
       "id": "region",
       "selector": "[aria-label='Region']",
       "fallbackSelector": "[data-telemetryid='RegionDropDown']",
-      "title": "Kies een regio",
-      "explanation": "Kies een regio dichtbij je gebruikers voor lage latency. Als je een database in West Europe hebt, zet dan de App Service ook in West Europe om netwerk-latency tussen app en database te minimaliseren."
+      "title": "Choose a region",
+      "explanation": "Choose a region close to your users for low latency. If your database is in West Europe, place the App Service there too to minimize network latency between app and database."
     },
     {
       "id": "app-service-plan",
       "selector": "[aria-label='App Service Plan']",
       "fallbackSelector": "[data-telemetryid='AppServicePlan']",
-      "title": "Kies of maak een App Service Plan",
-      "explanation": "Het App Service Plan bepaalt de compute-resources (CPU, RAM) en de prijs. Free/Shared: voor dev/test, beperkte features. Basic/Standard: voor productie met autoscaling. Premium: voor high performance en isolatie. Je kunt meerdere apps op één plan zetten."
+      "title": "Select or create an App Service Plan",
+      "explanation": "The App Service Plan defines the compute resources (CPU, RAM) and the price. Free/Shared: for dev/test with limited features. Basic/Standard: for production with autoscaling. Premium: for high performance and isolation. Multiple apps can share one plan."
     },
     {
       "id": "review-create",
       "selector": "button[aria-label='Review + create']",
       "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
-      "title": "Klik op Review + create",
-      "explanation": "Na aanmaken kun je direct deployen via GitHub Actions, Azure DevOps, of lokale Git. Ga naar 'Deployment Center' voor de eenvoudigste CI/CD-setup. De app is direct bereikbaar op jouwapp.azurewebsites.net."
+      "title": "Click Review + create",
+      "explanation": "After creation, deploy your code via GitHub Actions, Azure DevOps, or local Git. Go to 'Deployment Center' for the easiest CI/CD setup. Your app is immediately reachable at yourapp.azurewebsites.net."
     }
   ]
 }

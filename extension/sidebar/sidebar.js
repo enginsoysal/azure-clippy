@@ -1,11 +1,10 @@
 let allWorkflows = [];
-let index = null;
 
-const searchEl      = document.getElementById('search');
+const searchEl       = document.getElementById('search');
 const categoryListEl = document.getElementById('category-list');
-const suggestedEl   = document.getElementById('suggested');
-const suggestedList = document.getElementById('suggested-list');
-const statusEl      = document.getElementById('status');
+const suggestedEl    = document.getElementById('suggested');
+const suggestedList  = document.getElementById('suggested-list');
+const statusEl       = document.getElementById('status');
 
 function setStatus(msg, type = '') {
   statusEl.textContent = msg;
@@ -39,10 +38,12 @@ function renderList(workflows) {
   for (const [category, items] of Object.entries(groups)) {
     const group = document.createElement('div');
     group.className = 'category-group';
+
     const catName = document.createElement('div');
     catName.className = 'category-name';
     catName.textContent = category;
     group.appendChild(catName);
+
     for (const wf of items) {
       group.appendChild(renderWorkflowCard(wf));
     }
@@ -64,17 +65,17 @@ searchEl.addEventListener('input', () => {
 });
 
 async function startWorkflow(wf) {
-  setStatus(`Workflow laden: ${wf.title}...`, 'loading');
+  setStatus(`Loading: ${wf.title}...`, 'loading');
 
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab?.url?.includes('portal.azure.com')) {
-    setStatus('Open portal.azure.com om een workflow te starten.', 'error');
+    setStatus('Open portal.azure.com to start a workflow.', 'error');
     return;
   }
 
   chrome.runtime.sendMessage({ type: 'FETCH_WORKFLOW', id: wf.id }, (res) => {
     if (!res?.ok) {
-      setStatus(`Fout bij laden workflow: ${res?.error || 'onbekend'}`, 'error');
+      setStatus(`Failed to load workflow: ${res?.error || 'unknown error'}`, 'error');
       return;
     }
     setStatus('');
@@ -91,21 +92,6 @@ async function startWorkflow(wf) {
 
 function sendStartMessage(tabId, workflow) {
   chrome.tabs.sendMessage(tabId, { type: 'START_WORKFLOW', workflow });
-}
-
-async function loadIndex() {
-  setStatus('Workflows laden...', 'loading');
-  chrome.runtime.sendMessage({ type: 'FETCH_INDEX' }, (res) => {
-    if (!res?.ok) {
-      setStatus('Kan workflows niet laden. Controleer je internetverbinding.', 'error');
-      return;
-    }
-    index = res.data;
-    allWorkflows = index.workflows;
-    setStatus('');
-    renderList(allWorkflows);
-    checkSuggestedWorkflow();
-  });
 }
 
 function checkSuggestedWorkflow() {
@@ -125,5 +111,19 @@ chrome.runtime.onMessage.addListener((msg) => {
     }
   }
 });
+
+function loadIndex() {
+  setStatus('Loading workflows...', 'loading');
+  chrome.runtime.sendMessage({ type: 'FETCH_INDEX' }, (res) => {
+    if (!res?.ok) {
+      setStatus('Could not load workflows. Check your internet connection.', 'error');
+      return;
+    }
+    allWorkflows = res.data.workflows;
+    setStatus('');
+    renderList(allWorkflows);
+    checkSuggestedWorkflow();
+  });
+}
 
 loadIndex();

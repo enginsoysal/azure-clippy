@@ -29,11 +29,11 @@ jobs:
           body: |
             ## Azure Clippy ${{ github.ref_name }}
 
-            ### Installeren
-            1. Download `azure-clippy-${{ github.ref_name }}.zip` hieronder
-            2. Pak uit naar een map
-            3. Open Edge: `edge://extensions` of Chrome: `chrome://extensions`
-            4. Zet **Developer mode** aan
-            5. Klik **Load unpacked** en selecteer de uitgepakte map
+            ### Installation
+            1. Download `azure-clippy-${{ github.ref_name }}.zip` below
+            2. Extract to a folder
+            3. Open Edge: `edge://extensions` or Chrome: `chrome://extensions`
+            4. Enable **Developer mode**
+            5. Click **Load unpacked** and select the extracted folder
 
-            Zie de [README](README.md) voor meer informatie.
+            See the [README](README.md) for more information.

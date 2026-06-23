@@ -1,6 +1,6 @@
 {
   "id": "containers/create-aks",
-  "title": "AKS Cluster aanmaken",
+  "title": "Create an AKS Cluster",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#create/microsoft.aks",
@@ -9,57 +9,57 @@
       "id": "subscription",
       "selector": "[aria-label='Subscription']",
       "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
-      "title": "Kies je Subscription",
-      "explanation": "AKS-kosten bestaan uit de worker node VM's (je betaalt voor de compute) en optioneel de Uptime SLA voor de control plane. De control plane zelf is gratis, maar zonder SLA heb je geen garantie op availability."
+      "title": "Choose your Subscription",
+      "explanation": "AKS costs consist of the worker node VMs (you pay for the compute) and optionally the Uptime SLA for the control plane. The control plane itself is free, but without the SLA there is no availability guarantee."
     },
     {
       "id": "resource-group",
       "selector": "[aria-label='Resource group']",
       "fallbackSelector": "[name='resourceGroup']",
-      "title": "Kies of maak een Resource Group",
-      "explanation": "AKS maakt automatisch een tweede Resource Group aan voor de onderliggende infrastructuur (nodes, load balancers, disks). Die RG heet standaard 'MC_<rg>_<cluster>_<regio>' en wordt beheerd door Azure — verwijder die nooit handmatig."
+      "title": "Select or create a Resource Group",
+      "explanation": "AKS automatically creates a second Resource Group for the underlying infrastructure (nodes, load balancers, disks). It is named 'MC_<rg>_<cluster>_<region>' by default and is managed by Azure — never delete it manually."
     },
     {
       "id": "cluster-name",
       "selector": "[aria-label='Kubernetes cluster name']",
       "fallbackSelector": "[name='clusterName']",
-      "title": "Geef het cluster een naam",
-      "explanation": "Gebruik een beschrijvende naam zoals 'aks-prod-westeurope'. De naam is ook de hostnaam in je kubeconfig. Kies een naam die de omgeving en regio aangeeft — je krijgt er later misschien meerdere."
+      "title": "Give the cluster a name",
+      "explanation": "Use a descriptive name like 'aks-prod-westeurope'. The name also becomes the context name in your kubeconfig. Choose a name that indicates the environment and region — you may have multiple clusters later."
     },
     {
       "id": "region",
       "selector": "[aria-label='Region']",
       "fallbackSelector": "[data-telemetryid='RegionDropDown']",
-      "title": "Kies een regio",
-      "explanation": "Niet alle Kubernetes-versies zijn in elke regio beschikbaar. West Europe en North Europe zijn in Europa de meest volledige regio's qua AKS-features. Kies dezelfde regio als je Container Registry (ACR) voor gratis image pulls."
+      "title": "Choose a region",
+      "explanation": "Not all Kubernetes versions are available in every region. West Europe and North Europe are the most complete regions in Europe for AKS features. Choose the same region as your Container Registry (ACR) for free image pulls."
     },
     {
       "id": "k8s-version",
       "selector": "[aria-label='Kubernetes version']",
       "fallbackSelector": "[data-telemetryid='KubernetesVersion']",
-      "title": "Kies de Kubernetes-versie",
-      "explanation": "Kies de nieuwste stabiele versie tenzij je specifieke versie-vereisten hebt. AKS ondersteunt elke versie ca. 1 jaar. Plan upgrades — op een EOL-versie kun je geen support meer aanvragen en later niet meer upgraden via de portal."
+      "title": "Choose the Kubernetes version",
+      "explanation": "Choose the latest stable version unless you have specific version requirements. AKS supports each version for approximately 1 year. Plan upgrades — on an EOL version you can no longer request support or upgrade via the portal."
     },
     {
       "id": "node-size",
       "selector": "[aria-label='Node size']",
       "fallbackSelector": "button[data-telemetryid='NodeSize']",
-      "title": "Kies de node-grootte",
-      "explanation": "De node-grootte bepaalt hoeveel pods per node kunnen draaien (gebaseerd op CPU en RAM). Standaard D-series zijn een goede start. Gebruik meerdere kleinere nodes i.p.v. één grote — dat geeft betere failover bij een node-crash."
+      "title": "Choose the node size",
+      "explanation": "Node size determines how many pods can run per node (based on CPU and RAM). Standard D-series are a good starting point. Use multiple smaller nodes instead of one large one — this gives better failover when a node crashes."
     },
     {
       "id": "node-count",
       "selector": "[aria-label='Node count']",
       "fallbackSelector": "[name='agentCount']",
-      "title": "Stel het aantal nodes in",
-      "explanation": "Minimum 3 nodes voor productie (zodat de control plane quorum heeft bij updates). Met Cluster Autoscaler kun je dit later automatisch laten schalen. Minder dan 3 nodes is geschikt voor dev/test."
+      "title": "Set the node count",
+      "explanation": "Minimum 3 nodes for production (so the control plane maintains quorum during updates). With Cluster Autoscaler you can let Azure scale this automatically. Fewer than 3 nodes is fine for dev/test."
     },
     {
       "id": "review-create",
       "selector": "button[aria-label='Review + create']",
       "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
-      "title": "Klik op Review + create",
-      "explanation": "AKS-deployment duurt 5-15 minuten. Daarna download je de kubeconfig via 'az aks get-credentials --resource-group <rg> --name <cluster>'. Je kunt dan direct met kubectl of Helm werken."
+      "title": "Click Review + create",
+      "explanation": "AKS deployment takes 5-15 minutes. Afterwards, download the kubeconfig with: az aks get-credentials --resource-group <rg> --name <cluster>. You can then immediately use kubectl or Helm."
     }
   ]
 }

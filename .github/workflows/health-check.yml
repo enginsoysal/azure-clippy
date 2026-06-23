@@ -2,8 +2,8 @@ name: Weekly Health Check
 
 on:
   schedule:
-    - cron: '0 7 * * 1'   # Elke maandag om 07:00 UTC
-  workflow_dispatch:        # Ook handmatig te triggeren
+    - cron: '0 7 * * 1'   # Every Monday at 07:00 UTC
+  workflow_dispatch:        # Can also be triggered manually
 
 jobs:
   health-check:
@@ -30,7 +30,6 @@ jobs:
         working-directory: health-check
 
       - name: Run health checks
-        id: health
         run: npx playwright test
         working-directory: health-check
         env:
@@ -45,7 +44,7 @@ jobs:
           path: health-check/report/
           retention-days: 30
 
-      - name: Open issue bij gefaalde selectors
+      - name: Open issue on broken selectors
         if: failure()
         uses: actions/github-script@v7
         with:
@@ -56,24 +55,24 @@ jobs:
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `[Health Check] Gebroken workflow-selector(s) — ${date}`,
+              title: `[Health Check] Broken workflow selector(s) — ${date}`,
               labels: ['broken-workflow', 'needs-fix'],
               body: [
-                '## Wekelijkse Health Check gefaald',
+                '## Weekly Health Check Failed',
                 '',
-                `De health check van **${date}** heeft één of meer gebroken selectors gedetecteerd.`,
-                'Dit betekent dat Azure Portal is bijgewerkt en de CSS/ARIA-selectors veranderd zijn.',
+                `The health check on **${date}** detected one or more broken selectors.`,
+                'This means the Azure Portal has been updated and some CSS/ARIA selectors have changed.',
                 '',
-                `**[Bekijk de details in de workflow run](${runUrl})**`,
+                `**[View details in the workflow run](${runUrl})**`,
                 '',
-                '## Actie vereist',
+                '## Action required',
                 '',
-                '1. Bekijk het Playwright-rapport (artifact in de workflow run)',
-                '2. Zoek de gebroken stap op in de bijbehorende workflow JSON',
-                '3. Update de `selector` of `fallbackSelector` naar de nieuwe waarde',
-                '4. Update `lastVerified` in het JSON-bestand naar vandaag',
-                '5. Submit een PR',
+                '1. Open the Playwright report (artifact in the workflow run)',
+                '2. Find the broken step in the corresponding workflow JSON file',
+                '3. Update the `selector` or `fallbackSelector` to the new value',
+                '4. Update `lastVerified` in the JSON file to today\'s date',
+                '5. Submit a pull request',
                 '',
-                '_Dit issue is automatisch aangemaakt door de Azure Clippy health check._',
+                '_This issue was automatically created by the Azure Clippy health check._',
               ].join('\n'),
             });

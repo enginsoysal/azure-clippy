@@ -1,6 +1,6 @@
 {
   "id": "networking/create-nsg",
-  "title": "Network Security Group aanmaken",
+  "title": "Create a Network Security Group",
   "version": "1.0.0",
   "lastVerified": "2026-06-23",
   "startUrl": "https://portal.azure.com/#create/Microsoft.NetworkSecurityGroup-ARM",
@@ -9,36 +9,36 @@
       "id": "subscription",
       "selector": "[aria-label='Subscription']",
       "fallbackSelector": "[data-telemetryid='SubscriptionDropDown']",
-      "title": "Kies je Subscription",
-      "explanation": "Een NSG is een gratis resource — je betaalt niets voor de NSG zelf, alleen voor het netverkeer dat erdoorheen gaat."
+      "title": "Choose your Subscription",
+      "explanation": "An NSG is a free resource — you pay nothing for the NSG itself, only for the traffic that flows through it."
     },
     {
       "id": "resource-group",
       "selector": "[aria-label='Resource group']",
       "fallbackSelector": "[name='resourceGroup']",
-      "title": "Kies of maak een Resource Group",
-      "explanation": "Zet de NSG bij voorkeur in dezelfde Resource Group als het subnet of de netwerkinterface waaraan je hem koppelt. Zo houd je je resources logisch bij elkaar."
+      "title": "Select or create a Resource Group",
+      "explanation": "Place the NSG in the same Resource Group as the subnet or network interface it will be associated with. This keeps related resources organized together."
     },
     {
       "id": "nsg-name",
       "selector": "[aria-label='Name']",
       "fallbackSelector": "[name='networkSecurityGroupName']",
-      "title": "Geef de NSG een naam",
-      "explanation": "Gebruik een beschrijvende naam, bijv. 'nsg-web-prod' of 'nsg-db-dev'. Een NSG kan aan meerdere subnetten of NIC's worden gekoppeld, dus de naam moet de functie aangeven, niet de locatie."
+      "title": "Give the NSG a name",
+      "explanation": "Use a descriptive name like 'nsg-web-prod' or 'nsg-db-dev'. An NSG can be associated with multiple subnets or NICs, so the name should reflect the function, not the location."
     },
     {
       "id": "region",
       "selector": "[aria-label='Region']",
       "fallbackSelector": "[data-telemetryid='RegionDropDown']",
-      "title": "Kies een regio",
-      "explanation": "Een NSG moet in dezelfde regio staan als de resources waaraan je hem koppelt. Een NSG in West Europe kan niet direct aan een subnet in East US worden gekoppeld."
+      "title": "Choose a region",
+      "explanation": "An NSG must be in the same region as the resources it protects. An NSG in West Europe cannot be directly associated with a subnet in East US."
     },
     {
       "id": "review-create",
       "selector": "button[aria-label='Review + create']",
       "fallbackSelector": "button[data-telemetryid='ReviewAndCreate']",
-      "title": "Klik op Review + create",
-      "explanation": "Na aanmaken kun je inbound- en outbound-regels toevoegen. Standaard blokkeert een NSG al het inbound-verkeer van internet en staat al het interne VNet-verkeer toe. Voeg daarna alleen de regels toe die je écht nodig hebt (least privilege)."
+      "title": "Click Review + create",
+      "explanation": "After creation, add inbound and outbound rules. By default, an NSG blocks all inbound internet traffic and allows all internal VNet traffic. Add only the rules you actually need (principle of least privilege)."
     }
   ]
 }
